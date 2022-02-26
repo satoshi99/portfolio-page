@@ -4,6 +4,7 @@ import {
   Grid,
   GridItem,
   Heading,
+  ScaleFade,
   Text,
   VStack,
 } from '@chakra-ui/react'
@@ -14,12 +15,24 @@ import { Layout } from '../components/Layout'
 import { Link } from '../components/Link'
 import { PostCard } from '../components/PostCard'
 import bgImage from '../public/blog_bg.jpg'
+import { useHandleScroll } from '../hooks/useHandleScroll'
+import { MdExpandMore } from 'react-icons/md'
+import { ArrowDownIcon } from '@chakra-ui/icons'
+import { MotionBox } from '../components/MotionBox'
 
 const Blog: NextPage = () => {
+  const { scrollY, setScrollY } = useHandleScroll()
+
   return (
     <Layout title="Blog">
-      <Flex minH="100vh" direction="column" bgColor="darkBlue">
-        <Box w="100%" h="100vh" bgImage={bgImage.src} bgSize="cover">
+      <Flex direction="column" bgColor="darkBlue">
+        <Box
+          w="100%"
+          h="100vh"
+          bgImage={bgImage.src}
+          bgSize="cover"
+          position="relative"
+        >
           <VStack
             alignItems="baseline"
             float="left"
@@ -29,7 +42,7 @@ const Blog: NextPage = () => {
             color="white"
           >
             <Heading fontSize="5xl" color="yellow.200">
-              Blog Title
+              Blog Title {scrollY}
             </Heading>
             <Text fontSize="2xl">
               Blog description --------------------------------------------
@@ -42,16 +55,49 @@ const Blog: NextPage = () => {
               </Link>
             </NextLink>
           </VStack>
+          <ScaleFade in={scrollY < 50} initial={true}>
+            <Flex
+              direction="column"
+              position="absolute"
+              w="100%"
+              bottom="100"
+              color="white"
+              fontSize="3xl"
+              alignItems="center"
+            >
+              <Text bgColor="blackAlpha.700" px="2">
+                more articles
+              </Text>
+              <MotionBox
+                animate={{
+                  y: [0, 10, 0],
+                }}
+                transition={{
+                  duration: 1,
+                  ease: 'easeInOut',
+                  repeat: Infinity,
+                  repeatType: 'loop',
+                  repeatDelay: 1,
+                }}
+              >
+                <ArrowDownIcon bgColor="blackAlpha.700" rounded="full" />
+              </MotionBox>
+            </Flex>
+          </ScaleFade>
         </Box>
         <Flex>
           <Box w="75%" bg="transparent" zIndex="sticky" ml="10" mt="-44">
             <Grid templateColumns="repeat(2, 1fr)" gap="5">
-              <GridItem colSpan={1}>
-                <PostCard href="/" />
-              </GridItem>
-              <GridItem colSpan={1}>
-                <PostCard href="/" />
-              </GridItem>
+              <ScaleFade in={scrollY > 100}>
+                <GridItem colSpan={1}>
+                  <PostCard href="/" />
+                </GridItem>
+              </ScaleFade>
+              <ScaleFade in={scrollY > 300}>
+                <GridItem colSpan={1}>
+                  <PostCard href="/" />
+                </GridItem>
+              </ScaleFade>
               <GridItem colSpan={1}>
                 <PostCard href="/" />
               </GridItem>
