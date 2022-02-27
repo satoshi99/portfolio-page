@@ -16,7 +16,6 @@ import { Link } from '../components/Link'
 import { PostCard } from '../components/PostCard'
 import bgImage from '../public/blog_bg.jpg'
 import { useHandleScroll } from '../hooks/useHandleScroll'
-import { MdExpandMore } from 'react-icons/md'
 import { ArrowDownIcon } from '@chakra-ui/icons'
 import { MotionBox } from '../components/MotionBox'
 
@@ -36,16 +35,18 @@ const Blog: NextPage = () => {
           <VStack
             alignItems="baseline"
             float="left"
-            w="100%"
+            w={{ base: '100%', md: '80%' }}
             pt="200"
-            px={{ md: '50', lg: '100' }}
+            px={{ base: '50', md: '100' }}
             color="white"
           >
             <Heading fontSize="5xl" color="yellow.200">
               Blog Title {scrollY}
             </Heading>
             <Text fontSize="2xl">
-              Blog description --------------------------------------------
+              Blog Post description Blog Post description Blog Post description
+              Blog Post description Blog Post description Blog Post description
+              Blog Post description Blog Post description
             </Text>
             <NextLink href="/" passHref>
               <Link>
@@ -55,7 +56,7 @@ const Blog: NextPage = () => {
               </Link>
             </NextLink>
           </VStack>
-          <ScaleFade in={scrollY < 50} initial={true}>
+          <ScaleFade in={scrollY < 50}>
             <Flex
               direction="column"
               position="absolute"
@@ -85,27 +86,35 @@ const Blog: NextPage = () => {
             </Flex>
           </ScaleFade>
         </Box>
-        <Flex>
-          <Box w="75%" bg="transparent" zIndex="sticky" ml="10" mt="-44">
-            <Grid templateColumns="repeat(2, 1fr)" gap="5">
-              <ScaleFade in={scrollY > 100}>
-                <GridItem colSpan={1}>
+
+        <Flex direction="column">
+          <Grid templateColumns="repeat(4, 1fr)">
+            <GridItem
+              colSpan={{ base: 4, md: 3 }}
+              zIndex="sticky"
+              ml="10"
+              mt="-44"
+            >
+              <Grid templateColumns="repeat(2, 1fr)" gap="5">
+                <ScaleFade in={scrollY > 100}>
+                  <GridItem colSpan={{ base: 2, sm: 1 }}>
+                    <PostCard href="/" />
+                  </GridItem>
+                </ScaleFade>
+                <ScaleFade in={scrollY > 300}>
+                  <GridItem colSpan={{ base: 2, sm: 1 }}>
+                    <PostCard href="/" />
+                  </GridItem>
+                </ScaleFade>
+                <GridItem colSpan={{ base: 2, sm: 1 }}>
                   <PostCard href="/" />
                 </GridItem>
-              </ScaleFade>
-              <ScaleFade in={scrollY > 300}>
-                <GridItem colSpan={1}>
-                  <PostCard href="/" />
-                </GridItem>
-              </ScaleFade>
-              <GridItem colSpan={1}>
-                <PostCard href="/" />
-              </GridItem>
-            </Grid>
-          </Box>
-          <Box color="white" maxW="25%">
-            <BlogSidebar />
-          </Box>
+              </Grid>
+            </GridItem>
+            <GridItem colSpan={{ base: 4, md: 1 }} color="white">
+              <BlogSidebar />
+            </GridItem>
+          </Grid>
         </Flex>
       </Flex>
     </Layout>

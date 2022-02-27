@@ -1,34 +1,45 @@
-import { Container } from '@chakra-ui/react'
 import type { NextPage } from 'next'
+import { useState } from 'react'
+import { ContactForm } from '../components/ContactForm'
+import { ConfirmPage } from '../components/ConfirmPage'
 import { Layout } from '../components/Layout'
-import { MotionBox } from '../components/MotionBox'
+import { ThankPage } from '../components/ThankPage'
 
 const Contact: NextPage = () => {
+  const [name, setName] = useState('')
+  const [email, setEmail] = useState('')
+  const [message, setMessage] = useState('')
+  const [step, setStep] = useState(0)
+
   return (
     <Layout title="Contact">
-      <Container h="100vh" d="flex" alignItems="center" justifyContent="center">
-        <MotionBox
-          as="aside"
-          animate={{
-            scale: [1, 2, 2, 1, 1],
-            rotate: [0, 0, 270, 270, 0],
-            borderRadius: ['20%', '20%', '50%', '50%', '20%'],
-          }}
-          transition={{
-            duration: 2,
-            ease: 'easeInOut',
-            times: [0, 0.2, 0.5, 0.8, 1],
-            repeat: Infinity,
-            repeatType: 'loop',
-            repeatDelay: 1,
-          }}
-          padding="2"
-          bgGradient="linear(to-l, #7928CA, #FF0080)"
-          width="12"
-          height="12"
-          display="flex"
+      {step === 0 ? (
+        <ContactForm
+          name={name}
+          setName={setName}
+          email={email}
+          setEmail={setEmail}
+          message={message}
+          setMessage={setMessage}
+          step={step}
+          setStep={setStep}
         />
-      </Container>
+      ) : step === 1 ? (
+        <ConfirmPage
+          name={name}
+          email={email}
+          message={message}
+          step={step}
+          setStep={setStep}
+        />
+      ) : (
+        <ThankPage
+          setName={setName}
+          setEmail={setEmail}
+          setMessage={setMessage}
+          setStep={setStep}
+        />
+      )}
     </Layout>
   )
 }
