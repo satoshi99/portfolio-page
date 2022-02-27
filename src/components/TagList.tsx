@@ -1,12 +1,4 @@
-import {
-  Button,
-  Flex,
-  Heading,
-  HStack,
-  Stack,
-  Tag,
-  Text,
-} from '@chakra-ui/react'
+import { Button, Flex, Heading, Stack } from '@chakra-ui/react'
 import { AiOutlineTags } from 'react-icons/ai'
 import NextLink from 'next/link'
 import { Link } from './Link'
