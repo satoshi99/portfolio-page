@@ -1,7 +1,7 @@
 import { Button, Flex, Heading, Stack } from '@chakra-ui/react'
 import { AiOutlineTags } from 'react-icons/ai'
-import NextLink from 'next/link'
-import { Link } from './Link'
+import Link from 'next/link'
+import { ChakraLink } from './ChakraLink'
 
 export const TagList = () => {
   return (
@@ -13,8 +13,8 @@ export const TagList = () => {
         <Heading>Tags</Heading>
       </Flex>
       <Flex direction="row" wrap="wrap" gap="2">
-        <NextLink href="/" passHref>
-          <Link>
+        <Link href="/" passHref>
+          <ChakraLink>
             <Button
               size="xs"
               variant="outline"
@@ -22,10 +22,10 @@ export const TagList = () => {
             >
               Next.js
             </Button>
-          </Link>
-        </NextLink>
-        <NextLink href="/" passHref>
-          <Link>
+          </ChakraLink>
+        </Link>
+        <Link href="/" passHref>
+          <ChakraLink>
             <Button
               size="xs"
               variant="outline"
@@ -33,10 +33,10 @@ export const TagList = () => {
             >
               Python
             </Button>
-          </Link>
-        </NextLink>
-        <NextLink href="/" passHref>
-          <Link>
+          </ChakraLink>
+        </Link>
+        <Link href="/" passHref>
+          <ChakraLink>
             <Button
               size="xs"
               variant="outline"
@@ -44,8 +44,8 @@ export const TagList = () => {
             >
               Django REST Framework
             </Button>
-          </Link>
-        </NextLink>
+          </ChakraLink>
+        </Link>
       </Flex>
     </Stack>
   )

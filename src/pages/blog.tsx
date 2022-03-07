@@ -12,7 +12,7 @@ import type { NextPage } from 'next'
 import NextLink from 'next/link'
 import { BlogSidebar } from '../components/BlogSidebar'
 import { Layout } from '../components/Layout'
-import { Link } from '../components/Link'
+import { ChakraLink } from '../components/ChakraLink'
 import { PostCard } from '../components/PostCard'
 import bgImage from '../public/blog_bg.jpg'
 import { useHandleScroll } from '../hooks/useHandleScroll'
@@ -49,11 +49,11 @@ const Blog: NextPage = () => {
               Blog Post description Blog Post description
             </Text>
             <NextLink href="/" passHref>
-              <Link>
+              <ChakraLink>
                 <Text fontSize="xl" _hover={{ color: 'whiteAlpha.600' }}>
                   continue reading ...
                 </Text>
-              </Link>
+              </ChakraLink>
             </NextLink>
           </VStack>
           <ScaleFade in={scrollY < 50}>

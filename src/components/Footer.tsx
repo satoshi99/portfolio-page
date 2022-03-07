@@ -1,6 +1,6 @@
-import NextLink from 'next/link'
+import Link from 'next/link'
 import { Flex, Text } from '@chakra-ui/react'
-import { Link } from './Link'
+import { ChakraLink } from './ChakraLink'
 
 export const Footer = () => {
   return (
@@ -14,11 +14,11 @@ export const Footer = () => {
       align="center"
       justify="center"
     >
-      <NextLink href="/policy" passHref>
-        <Link>
+      <Link href="/policy" passHref>
+        <ChakraLink>
           <Text _hover={{ color: 'whiteAlpha.600' }}>Privacy Policy</Text>
-        </Link>
-      </NextLink>
+        </ChakraLink>
+      </Link>
     </Flex>
   )
 }

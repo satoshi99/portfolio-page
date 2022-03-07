@@ -8,7 +8,7 @@ import {
   useColorModeValue,
 } from '@chakra-ui/react'
 import NextLink from 'next/link'
-import { Link } from './Link'
+import { ChakraLink } from './ChakraLink'
 import thumbnail from '../public/index_bg.jpg'
 
 type Props = {
@@ -22,7 +22,7 @@ export const PostCard = ({ href }: Props) => {
 
   return (
     <NextLink href={href} passHref>
-      <Link>
+      <ChakraLink>
         <Box bgColor={bgColor} boxShadow="lg" rounded="xl" overflow="hidden">
           <Box _hover={{ opacity: '0.8' }}>
             <Image
@@ -55,7 +55,7 @@ export const PostCard = ({ href }: Props) => {
             </Stack>
           </Box>
         </Box>
-      </Link>
+      </ChakraLink>
     </NextLink>
   )
 }

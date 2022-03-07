@@ -1,7 +1,7 @@
-import NextLink from 'next/link'
+import Link from 'next/link'
 import { Flex, Heading, HStack, Spacer, Text } from '@chakra-ui/react'
 import { DarkModeSwitch } from './DarkModeSwitch'
-import { Link } from './Link'
+import { ChakraLink } from './ChakraLink'
 
 export const Navbar = () => (
   <Flex
@@ -14,26 +14,26 @@ export const Navbar = () => (
     color="white"
   >
     <HStack justifyContent="center">
-      <NextLink href="/" passHref>
-        <Link>
+      <Link href="/" passHref>
+        <ChakraLink>
           <Heading size="md" _hover={{ color: 'whiteAlpha.600' }}>
             Satoshi Tech Portfolio
           </Heading>
-        </Link>
-      </NextLink>
+        </ChakraLink>
+      </Link>
     </HStack>
     <Spacer />
     <HStack spacing="5">
-      <NextLink href="/blog" passHref>
-        <Link>
+      <Link href="/blog" passHref>
+        <ChakraLink>
           <Text _hover={{ color: 'whiteAlpha.600' }}>Blog</Text>
-        </Link>
-      </NextLink>
-      <NextLink href="/contact" passHref>
-        <Link>
+        </ChakraLink>
+      </Link>
+      <Link href="/contact" passHref>
+        <ChakraLink>
           <Text _hover={{ color: 'whiteAlpha.600' }}>Contact</Text>
-        </Link>
-      </NextLink>
+        </ChakraLink>
+      </Link>
       <DarkModeSwitch />
     </HStack>
   </Flex>
