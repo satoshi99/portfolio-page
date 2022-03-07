@@ -18,3 +18,10 @@ export type Admin = {
   email: string
   posts: Post[]
 }
+
+export type FormInputs = {
+  name: string
+  email: string
+  message: string
+  policyConfirm: boolean
+}
