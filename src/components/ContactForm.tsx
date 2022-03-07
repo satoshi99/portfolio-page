@@ -1,78 +1,226 @@
 import {
+  Box,
   Button,
+  Checkbox,
+  Divider,
   Flex,
+  FormControl,
+  FormErrorMessage,
   FormLabel,
   Heading,
   Input,
+  Modal,
+  ModalBody,
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
+  ModalOverlay,
   Stack,
+  Text,
   Textarea,
+  useDisclosure,
+  useToast,
 } from '@chakra-ui/react'
-import { FormEvent, Dispatch, SetStateAction } from 'react'
+import { useState } from 'react'
+import { useForm, SubmitHandler } from 'react-hook-form'
+import { FormInputs } from '../types/types'
+import { SuccessPage } from './SuccessPage'
 
-type Props = {
-  name: string
-  setName: Dispatch<SetStateAction<string>>
-  email: string
-  setEmail: Dispatch<SetStateAction<string>>
-  message: string
-  setMessage: Dispatch<SetStateAction<string>>
-  step: number
-  setStep: Dispatch<SetStateAction<number>>
-}
+export const ContactForm = () => {
+  const [inputValues, setInputValues] = useState<FormInputs>()
 
-export const ContactForm = ({
-  name,
-  setName,
-  email,
-  setEmail,
-  message,
-  setMessage,
-  step,
-  setStep,
-}: Props) => {
-  const handleSubmit = (e: FormEvent) => {
-    e.preventDefault()
-    setStep(step + 1)
+  const {
+    register,
+    getValues,
+    handleSubmit,
+    reset,
+    formState: { errors, isValid, isSubmitting, isSubmitted },
+  } = useForm<FormInputs>({
+    mode: 'all',
+    defaultValues: {
+      name: '',
+      email: '',
+      message: '',
+      policyConfirm: false,
+    },
+  })
+
+  const { isOpen, onOpen, onClose } = useDisclosure()
+
+  const toast = useToast()
+  const toastHandler = (errorMessage: string) => {
+    toast({
+      title: 'Submittion Failed',
+      description: errorMessage,
+      status: 'error',
+      duration: 9000,
+      isClosable: true,
+    })
+  }
+
+  const clickHandler = () => {
+    setInputValues(getValues())
+    onOpen()
+  }
+
+  const submitHandler: SubmitHandler<FormInputs> = async (data) => {
+    try {
+      await console.log(JSON.stringify(data))
+    } catch (e) {
+      toastHandler(e.message)
+    }
+    reset()
+  }
+
+  if (isSubmitted) {
+    return <SuccessPage />
   }
 
   return (
-    <Flex minH="100vh" direction="column" pt="28" align="center">
-      <Heading textAlign="center" mb="20" fontSize="5xl">
+    <Flex
+      direction="column"
+      minH="100vh"
+      px={{ base: '16', md: '28', lg: '36' }}
+      py="24"
+    >
+      <Heading textAlign="center" mb="14">
         Contact Form
       </Heading>
-      <form onSubmit={handleSubmit}>
-        <Stack direction="column" fontSize="lg">
-          <Flex>
+
+      <form noValidate>
+        <Stack direction="column" spacing={5}>
+          <FormControl isRequired isInvalid={errors.name ? true : false}>
             <FormLabel>Name</FormLabel>
             <Input
               type="text"
-              placeholder="Name"
-              onChange={(e) => setName(e.target.value)}
-              value={name}
+              placeholder="name"
+              {...register('name', {
+                required: { value: true, message: 'Name is requried' },
+              })}
             />
-          </Flex>
-          <Flex>
+            <FormErrorMessage>
+              {errors.name && errors.name.message}
+            </FormErrorMessage>
+          </FormControl>
+
+          <FormControl isRequired isInvalid={errors.email ? true : false}>
             <FormLabel>Email</FormLabel>
             <Input
               type="email"
-              placeholder="Email"
-              onChange={(e) => setEmail(e.target.value)}
-              value={email}
+              placeholder="guest@example.com"
+              {...register('email', {
+                required: {
+                  value: true,
+                  message: 'Email is requried',
+                },
+                pattern: {
+                  value: /[\w\-._]+@[\w\-._]+\.[A-Za-z]+/,
+                  message: 'Invalid Email adress',
+                },
+              })}
             />
-          </Flex>
-          <Flex direction="column">
+            <FormErrorMessage>
+              {errors.email && errors.email.message}
+            </FormErrorMessage>
+          </FormControl>
+
+          <FormControl isRequired isInvalid={errors.message ? true : false}>
             <FormLabel>Message</FormLabel>
             <Textarea
-              placeholder="Message"
-              onChange={(e) => setMessage(e.target.value)}
-              value={message}
+              placeholder="Contact message..."
+              {...register('message', {
+                required: {
+                  value: true,
+                  message: 'Message is required',
+                },
+              })}
             />
-          </Flex>
+            <FormErrorMessage>
+              {errors.message && errors.message.message}
+            </FormErrorMessage>
+          </FormControl>
+
+          <FormControl
+            isRequired
+            isInvalid={errors.policyConfirm ? true : false}
+          >
+            <Flex direction="row" gap={2}>
+              <Checkbox
+                defaultChecked={false}
+                {...register('policyConfirm', {
+                  required: {
+                    value: true,
+                    message: 'You must confirm the Privacy Policy',
+                  },
+                })}
+              />
+              <FormLabel mt="2">
+                Please check if you agree with Privacy Policy
+              </FormLabel>
+            </Flex>
+            <FormErrorMessage>
+              {errors.policyConfirm && errors.policyConfirm.message}
+            </FormErrorMessage>
+          </FormControl>
+
+          <Button
+            type="button"
+            w="100%"
+            colorScheme="teal"
+            disabled={!isValid}
+            onClick={clickHandler}
+          >
+            CONFIRM
+          </Button>
         </Stack>
-        <Button type="submit" w="100%" mt="10" colorScheme="blue">
-          CONFIRM
-        </Button>
       </form>
+
+      <Modal
+        isCentered
+        onClose={onClose}
+        isOpen={isOpen}
+        scrollBehavior="inside"
+        size="xl"
+      >
+        <ModalOverlay
+          bg="blackAlpha.300"
+          backdropFilter="blur(10px) hue-rotate(90deg)"
+        />
+        <ModalContent>
+          <ModalHeader>Confirm your inquiry</ModalHeader>
+          <ModalBody>
+            <Stack direction="column">
+              <Box>
+                <Text color="gray">Name</Text>
+                <Divider />
+                <Text>{inputValues?.name}</Text>
+              </Box>
+
+              <Box>
+                <Text color="gray">Email</Text>
+                <Divider />
+                <Text>{inputValues?.email}</Text>
+              </Box>
+
+              <Box>
+                <Text color="gray">Message</Text>
+                <Divider />
+                <Text>{inputValues?.message}</Text>
+              </Box>
+            </Stack>
+          </ModalBody>
+          <ModalFooter>
+            <Button type="button" onClick={onClose} mr={3}>
+              BACK
+            </Button>
+            <form onSubmit={handleSubmit(submitHandler)}>
+              <Button type="submit" colorScheme="teal" isLoading={isSubmitting}>
+                SUBMIT
+              </Button>
+            </form>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
     </Flex>
   )
 }
