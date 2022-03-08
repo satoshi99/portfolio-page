@@ -12,8 +12,10 @@ import {
   Text,
 } from '@chakra-ui/react'
 import { useState } from 'react'
+import Link from 'next/link'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { AuthInputs } from '../../../types/types'
+import { ChakraLink } from '../../atoms/ChakraLink'
 
 export const AuthForm = () => {
   const {
@@ -46,16 +48,20 @@ export const AuthForm = () => {
       align="center"
       justify="center"
     >
-      <Text
-        position="absolute"
-        top="10"
-        left="10"
-        color="white"
-        fontWeight="bold"
-        fontSize="2xl"
-      >
-        Satoshi Tech Portfolio
-      </Text>
+      <Link href="/" passHref>
+        <ChakraLink>
+          <Text
+            position="absolute"
+            top="10"
+            left="10"
+            color="white"
+            fontWeight="bold"
+            fontSize="2xl"
+          >
+            Satoshi Tech Portfolio
+          </Text>
+        </ChakraLink>
+      </Link>
       <Box bgColor="white" w="lg" p="10" borderRadius="xl" shadow="2xl">
         <Heading textAlign="center" mb="14">
           Admin User Login
@@ -109,7 +115,7 @@ export const AuthForm = () => {
             disabled={!isValid}
             isLoading={isSubmitting}
           >
-            CONFIRM
+            LOG IN
           </Button>
         </form>
       </Box>
