@@ -1,16 +1,21 @@
 import type { NextPage } from 'next'
-import NextLink from 'next/link'
-import { Flex } from '@chakra-ui/react'
-
-import { Hero } from '../components/Hero'
+import { Flex, Heading } from '@chakra-ui/react'
 
 import bgImage from '../public/index_bg.jpg'
-import { Layout } from '../components/Layout'
+import { Layout } from '../components/templates/Layout'
 
 const Index: NextPage = () => (
   <Layout title="Welcome">
     <Flex direction="column" bgImage={bgImage.src} height="100vh">
-      <Hero />
+      <Flex
+        justifyContent="center"
+        alignItems="center"
+        height="100vh"
+        bgGradient="linear(to-l, #7928CA, #FF0080)"
+        bgClip="text"
+      >
+        <Heading fontSize="6vw">Satoshi Tech Portfolio</Heading>
+      </Flex>
     </Flex>
   </Layout>
 )

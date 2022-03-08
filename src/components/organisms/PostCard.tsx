@@ -8,8 +8,8 @@ import {
   useColorModeValue,
 } from '@chakra-ui/react'
 import NextLink from 'next/link'
-import { ChakraLink } from './ChakraLink'
-import thumbnail from '../public/index_bg.jpg'
+import { ChakraLink } from '../atoms/ChakraLink'
+import thumbnail from '../../public/index_bg.jpg'
 
 type Props = {
   href: string

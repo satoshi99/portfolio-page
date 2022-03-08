@@ -1,14 +1,7 @@
-import {
-  Box,
-  Divider,
-  Heading,
-  Stack,
-  Text,
-  useColorModeValue,
-} from '@chakra-ui/react'
+import { Box, Heading, Stack, Text, useColorModeValue } from '@chakra-ui/react'
 import type { NextPage } from 'next'
-import { Layout } from '../components/Layout'
-import { ChakraLink } from '../components/ChakraLink'
+import { Layout } from '../components/templates/Layout'
+import { ChakraLink } from '../components/atoms/ChakraLink'
 
 const Policy: NextPage = () => {
   const headingFontSize = '2xl'

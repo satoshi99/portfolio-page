@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import { Flex, Text } from '@chakra-ui/react'
-import { ChakraLink } from './ChakraLink'
+import { ChakraLink } from '../atoms/ChakraLink'
 
 export const Footer = () => {
   return (

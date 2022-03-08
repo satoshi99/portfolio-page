@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import { Flex, Heading, HStack, Spacer, Text } from '@chakra-ui/react'
-import { DarkModeSwitch } from './DarkModeSwitch'
-import { ChakraLink } from './ChakraLink'
+import { DarkModeSwitch } from '../atoms/DarkModeSwitch'
+import { ChakraLink } from '../atoms/ChakraLink'
 
 export const Navbar = () => (
   <Flex

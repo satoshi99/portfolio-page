@@ -10,14 +10,14 @@ import {
 } from '@chakra-ui/react'
 import type { NextPage } from 'next'
 import NextLink from 'next/link'
-import { BlogSidebar } from '../components/BlogSidebar'
-import { Layout } from '../components/Layout'
-import { ChakraLink } from '../components/ChakraLink'
-import { PostCard } from '../components/PostCard'
+import { BlogSidebar } from '../components/templates/blog/BlogSidebar'
+import { Layout } from '../components/templates/Layout'
+import { ChakraLink } from '../components/atoms/ChakraLink'
+import { PostCard } from '../components/organisms/PostCard'
 import bgImage from '../public/blog_bg.jpg'
 import { useHandleScroll } from '../hooks/useHandleScroll'
 import { ArrowDownIcon } from '@chakra-ui/icons'
-import { MotionBox } from '../components/MotionBox'
+import { MotionBox } from '../components/atoms/MotionBox'
 
 const Blog: NextPage = () => {
   const { scrollY, setScrollY } = useHandleScroll()
@@ -93,21 +93,28 @@ const Blog: NextPage = () => {
               colSpan={{ base: 4, md: 3 }}
               zIndex="sticky"
               ml="10"
+              mr={{ base: 10, md: 0 }}
               mt="-44"
             >
-              <Grid templateColumns="repeat(2, 1fr)" gap="5">
+              <Grid
+                templateColumns={{
+                  base: 'repeat(1, 1fr)',
+                  sm: 'repeat(2, 1fr)',
+                }}
+                gap="5"
+              >
                 <ScaleFade in={scrollY > 100}>
                   <GridItem colSpan={{ base: 2, sm: 1 }}>
-                    <PostCard href="/" />
+                    <PostCard href="posts/a-slug" />
                   </GridItem>
                 </ScaleFade>
                 <ScaleFade in={scrollY > 300}>
                   <GridItem colSpan={{ base: 2, sm: 1 }}>
-                    <PostCard href="/" />
+                    <PostCard href="posts/b-slug" />
                   </GridItem>
                 </ScaleFade>
                 <GridItem colSpan={{ base: 2, sm: 1 }}>
-                  <PostCard href="/" />
+                  <PostCard href="posts/c-slug" />
                 </GridItem>
               </Grid>
             </GridItem>

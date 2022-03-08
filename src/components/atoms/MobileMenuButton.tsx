@@ -8,7 +8,7 @@ import {
   MenuList,
 } from '@chakra-ui/react'
 
-export const MenuComponent = () => {
+export const MobileMenuButton = () => {
   return (
     <Menu>
       <MenuButton

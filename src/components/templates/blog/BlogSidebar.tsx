@@ -1,5 +1,5 @@
-import { Box, Flex, Heading, Stack, Text } from '@chakra-ui/react'
-import { TagList } from './TagList'
+import { Stack } from '@chakra-ui/react'
+import { TagList } from '../../organisms/TagList'
 
 export const BlogSidebar = () => {
   return (

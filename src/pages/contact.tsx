@@ -1,6 +1,6 @@
 import type { NextPage } from 'next'
-import { ContactForm } from '../components/ContactForm'
-import { Layout } from '../components/Layout'
+import { ContactForm } from '../components/templates/contact/ContactForm'
+import { Layout } from '../components/templates/Layout'
 
 const Contact: NextPage = () => {
   return (

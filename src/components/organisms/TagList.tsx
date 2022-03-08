@@ -1,7 +1,7 @@
 import { Button, Flex, Heading, Stack } from '@chakra-ui/react'
 import { AiOutlineTags } from 'react-icons/ai'
 import Link from 'next/link'
-import { ChakraLink } from './ChakraLink'
+import { ChakraLink } from '../atoms/ChakraLink'
 
 export const TagList = () => {
   return (

@@ -1,8 +1,8 @@
 import Head from 'next/head'
 import { ReactNode } from 'react'
 import { Flex } from '@chakra-ui/react'
-import { Navbar } from './Navbar'
-import { Footer } from './Footer'
+import { Navbar } from '../organisms/Navbar'
+import { Footer } from '../organisms/Footer'
 
 type Props = {
   title: string

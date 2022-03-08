@@ -1,7 +1,7 @@
 import { Button, Flex, Heading, Text } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 
-export const SuccessPage = () => {
+export const SuccessView = () => {
   const router = useRouter()
   return (
     <Flex minH="100vh" direction="column" pt="28" align="center">
