@@ -25,3 +25,8 @@ export type FormInputs = {
   message: string
   policyConfirm: boolean
 }
+
+export type AuthInputs = {
+  email: string
+  password: string
+}

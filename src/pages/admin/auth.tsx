@@ -1,5 +1,7 @@
+import { AuthForm } from '../../components/templates/admin/AuthForm'
+
 const auth = () => {
-  return <div>auth</div>
+  return <AuthForm />
 }
 
 export default auth

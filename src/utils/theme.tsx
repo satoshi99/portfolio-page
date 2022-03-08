@@ -1,4 +1,4 @@
-import { extendTheme, textDecoration } from '@chakra-ui/react'
+import { extendTheme } from '@chakra-ui/react'
 import { createBreakpoints } from '@chakra-ui/theme-tools'
 
 const fonts = { mono: `'Menlo', monospace` }
@@ -14,14 +14,6 @@ const theme = extendTheme({
   colors: {
     black: '#16161D',
     darkBlue: '#002D59',
-  },
-  textStyles: {
-    a: {
-      textDecoration: 'none',
-    },
-    u: {
-      textDecoration: 'underline',
-    },
   },
   fonts,
   breakpoints,
