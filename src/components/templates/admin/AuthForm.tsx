@@ -62,8 +62,14 @@ export const AuthForm = () => {
           </Text>
         </ChakraLink>
       </Link>
-      <Box bgColor="white" w="lg" p="10" borderRadius="xl" shadow="2xl">
-        <Heading textAlign="center" mb="14">
+      <Box
+        bgColor="white"
+        w={['xs', 'md']}
+        p="10"
+        borderRadius="xl"
+        shadow="2xl"
+      >
+        <Heading textAlign="center" mb="10" fontSize={['2xl', '4xl']}>
           Admin User Login
         </Heading>
 
@@ -110,7 +116,7 @@ export const AuthForm = () => {
           <Button
             type="submit"
             w="100%"
-            mt="20"
+            mt="10"
             colorScheme="teal"
             disabled={!isValid}
             isLoading={isSubmitting}
