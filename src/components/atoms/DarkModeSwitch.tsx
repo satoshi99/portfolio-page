@@ -9,6 +9,7 @@ export const DarkModeSwitch = () => {
       onClick={toggleColorMode}
       bg="transparent"
       p="0"
+      transition="all"
       _hover={{ bgColor: 'transparent', color: 'yellow.200' }}
     >
       {isDark ? <SunIcon /> : <MoonIcon />}

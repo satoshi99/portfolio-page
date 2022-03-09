@@ -1,30 +1,27 @@
-import {
-  Box,
-  Flex,
-  Grid,
-  GridItem,
-  Heading,
-  ScaleFade,
-  Text,
-  VStack,
-} from '@chakra-ui/react'
+import { Box, Flex, Grid, GridItem, Heading, Text } from '@chakra-ui/react'
 import type { NextPage } from 'next'
-import NextLink from 'next/link'
 import { BlogSidebar } from '../components/templates/blog/BlogSidebar'
 import { Layout } from '../components/templates/Layout'
-import { ChakraLink } from '../components/atoms/ChakraLink'
 import { PostCard } from '../components/organisms/PostCard'
 import bgImage from '../public/blog_bg.jpg'
-import { useHandleScroll } from '../hooks/useHandleScroll'
 import { ArrowDownIcon } from '@chakra-ui/icons'
 import { MotionBox } from '../components/atoms/MotionBox'
+import { TopPost } from '../components/templates/blog/TopPost'
 
 const Blog: NextPage = () => {
-  const { scrollY, setScrollY } = useHandleScroll()
+  const topPost = {
+    _id: '1',
+    title: 'Post Title',
+    description:
+      'Blog Post description Blog Post description Blog Post description Blog Post description Blog Post description Blog Post description Blog Post description Blog Post description',
+    slug: 'top-post-slug',
+    isPublic: true,
+    tags: [],
+  }
 
   return (
     <Layout title="Blog">
-      <Flex direction="column" bgColor="darkBlue">
+      <Flex direction="column">
         <Box
           w="100%"
           h="100vh"
@@ -32,93 +29,73 @@ const Blog: NextPage = () => {
           bgSize="cover"
           position="relative"
         >
-          <VStack
-            alignItems="baseline"
-            float="left"
-            w={{ base: '100%', md: '80%' }}
-            pt="200"
-            px={{ base: '50', md: '100' }}
+          <TopPost topPost={topPost} />
+
+          <Flex
+            direction="column"
+            position="absolute"
+            w="100%"
+            bottom="100"
             color="white"
+            fontSize="3xl"
+            alignItems="center"
           >
-            <Heading fontSize="5xl" color="yellow.200">
-              Blog Title {scrollY}
-            </Heading>
-            <Text fontSize="2xl">
-              Blog Post description Blog Post description Blog Post description
-              Blog Post description Blog Post description Blog Post description
-              Blog Post description Blog Post description
+            <Text bgColor="blackAlpha.700" px="2">
+              more articles
             </Text>
-            <NextLink href="/" passHref>
-              <ChakraLink>
-                <Text fontSize="xl" _hover={{ color: 'whiteAlpha.600' }}>
-                  continue reading ...
-                </Text>
-              </ChakraLink>
-            </NextLink>
-          </VStack>
-          <ScaleFade in={scrollY < 50}>
-            <Flex
-              direction="column"
-              position="absolute"
-              w="100%"
-              bottom="100"
-              color="white"
-              fontSize="3xl"
-              alignItems="center"
+            <MotionBox
+              animate={{
+                y: [0, 10, 0],
+              }}
+              transition={{
+                duration: 1,
+                ease: 'easeInOut',
+                repeat: Infinity,
+                repeatType: 'loop',
+                repeatDelay: 1,
+              }}
             >
-              <Text bgColor="blackAlpha.700" px="2">
-                more articles
-              </Text>
-              <MotionBox
-                animate={{
-                  y: [0, 10, 0],
-                }}
-                transition={{
-                  duration: 1,
-                  ease: 'easeInOut',
-                  repeat: Infinity,
-                  repeatType: 'loop',
-                  repeatDelay: 1,
-                }}
-              >
-                <ArrowDownIcon bgColor="blackAlpha.700" rounded="full" />
-              </MotionBox>
-            </Flex>
-          </ScaleFade>
+              <ArrowDownIcon bgColor="blackAlpha.700" rounded="full" />
+            </MotionBox>
+          </Flex>
         </Box>
 
-        <Flex direction="column">
+        <Flex direction="column" bgColor="teal.500" minH="100vh">
           <Grid templateColumns="repeat(4, 1fr)">
             <GridItem
-              colSpan={{ base: 4, md: 3 }}
+              colSpan={{ base: 4, lg: 3 }}
               zIndex="sticky"
               ml="10"
-              mr={{ base: 10, md: 0 }}
-              mt="-44"
+              mt="10"
             >
+              <Heading color="darkblue" mb="5">
+                TECHNOLOGY
+              </Heading>
+
               <Grid
                 templateColumns={{
                   base: 'repeat(1, 1fr)',
-                  sm: 'repeat(2, 1fr)',
+                  md: 'repeat(2, 1fr)',
                 }}
                 gap="5"
               >
-                <ScaleFade in={scrollY > 100}>
-                  <GridItem colSpan={{ base: 2, sm: 1 }}>
-                    <PostCard href="posts/a-slug" />
-                  </GridItem>
-                </ScaleFade>
-                <ScaleFade in={scrollY > 300}>
-                  <GridItem colSpan={{ base: 2, sm: 1 }}>
-                    <PostCard href="posts/b-slug" />
-                  </GridItem>
-                </ScaleFade>
+                <GridItem colSpan={{ base: 2, sm: 1 }}>
+                  <PostCard href="posts/a-slug" />
+                </GridItem>
+
+                <GridItem colSpan={{ base: 2, sm: 1 }}>
+                  <PostCard href="posts/b-slug" />
+                </GridItem>
+                <GridItem colSpan={{ base: 2, sm: 1 }}>
+                  <PostCard href="posts/d-slug" />
+                </GridItem>
+
                 <GridItem colSpan={{ base: 2, sm: 1 }}>
                   <PostCard href="posts/c-slug" />
                 </GridItem>
               </Grid>
             </GridItem>
-            <GridItem colSpan={{ base: 4, md: 1 }} color="white">
+            <GridItem colSpan={{ base: 4, lg: 1 }} color="white">
               <BlogSidebar />
             </GridItem>
           </Grid>

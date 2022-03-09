@@ -15,7 +15,7 @@ const PostDetail: NextPage = () => {
     'linear(to-r, blue.300, yellow.400, red.200)',
     'linear(to-r, purple.900, teal.800, yellow.900)'
   )
-  const sidebarBgColor = useColorModeValue('blue.50', 'blue.900')
+  const sidebarBgColor = useColorModeValue('blue.50', 'gray.900')
   const contentBgColor = useColorModeValue('white', 'gray.900')
 
   return (
