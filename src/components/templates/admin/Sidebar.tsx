@@ -16,6 +16,7 @@ import {
 } from '@chakra-ui/react'
 import { FiHome, FiPenTool, FiSettings, FiMenu } from 'react-icons/fi'
 import { LinkItem } from '../../../types/admin'
+import { ChakraLink } from '../../atoms/ChakraLink'
 
 const linkItems: LinkItem[] = [
   { name: 'Home', url: 'dashboard', icon: FiHome },
@@ -62,9 +63,9 @@ interface SidebarProps extends BoxProps {
 const SidebarContent = ({ onClose, linkItems, ...rest }: SidebarProps) => {
   return (
     <Box
-      bg={useColorModeValue('teal.400', 'gray.900')}
+      bg={useColorModeValue('teal', 'gray.900')}
       borderRight="1px"
-      borderRightColor={useColorModeValue('teal.400', 'gray.700')}
+      borderRightColor={useColorModeValue('teal', 'gray.700')}
       w={{ base: 'full', md: 60 }}
       pos="fixed"
       h="full"
@@ -86,6 +87,7 @@ const SidebarContent = ({ onClose, linkItems, ...rest }: SidebarProps) => {
       {linkItems?.map((link) => (
         <NavItem key={link.name} linkItem={link} />
       ))}
+      <MainBanar />
     </Box>
   )
 }
@@ -132,9 +134,9 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
       px={{ base: 4, md: 24 }}
       height="20"
       alignItems="center"
-      bg={useColorModeValue('teal.400', 'gray.900')}
+      bg={useColorModeValue('teal', 'gray.900')}
       borderBottomWidth="1px"
-      borderBottomColor={useColorModeValue('teal.400', 'gray.700')}
+      borderBottomColor={useColorModeValue('teal', 'gray.700')}
       justifyContent="flex-start"
       {...rest}
     >
@@ -155,6 +157,24 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
       >
         Mypage
       </Text>
+      <MainBanar />
     </Flex>
+  )
+}
+
+const MainBanar = () => {
+  return (
+    <ChakraLink href="/" isExternal>
+      <Text
+        fontWeight="bold"
+        align="center"
+        bg="white"
+        p="5"
+        mx="3"
+        shadow="2xl"
+      >
+        Satoshi Tech Portfolio
+      </Text>
+    </ChakraLink>
   )
 }

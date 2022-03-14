@@ -23,6 +23,7 @@ import {
   useDisclosure,
   Box,
   Switch,
+  Divider,
 } from '@chakra-ui/react'
 import { AddIcon } from '@chakra-ui/icons'
 import type { NextPage } from 'next'
@@ -32,6 +33,11 @@ import { Sidebar } from '../../components/templates/admin/Sidebar'
 const newPost: NextPage = () => {
   const { isOpen, onOpen, onClose } = useDisclosure()
   const [isPublic, setIsPublic] = useState(false)
+
+  const onSubmit = (data) => {
+    console.log(data)
+  }
+
   return (
     <Sidebar>
       <form>
@@ -93,7 +99,7 @@ const newPost: NextPage = () => {
               onClick={onOpen}
               w="10rem"
               variant="solid"
-              colorScheme="blue"
+              colorScheme="blackAlpha"
             >
               Add New Tag
             </Button>
@@ -128,20 +134,31 @@ const newPost: NextPage = () => {
               </ModalContent>
             </Modal>
 
-            <Box w="100%" bgColor="teal.50" p="10">
-              <FormControl display="flex" alignItems="center">
-                <FormLabel htmlFor="toggle-public" mb="0">
-                  {isPublic ? 'Back to DRAFT' : 'Post to PUBLIC'}
-                </FormLabel>
-                <Switch
-                  id="toggle-public"
-                  colorScheme="green"
-                  onChange={() => setIsPublic(!isPublic)}
-                />
-                <FormHelperText color="green" ml="3">
-                  {isPublic ? 'now on public' : 'now on draft'}
-                </FormHelperText>
-              </FormControl>
+            <Box w="100%" bgColor="teal.50" p="5">
+              <Flex direction="row" gap="5">
+                <FormControl display="flex" alignItems="center">
+                  <FormLabel htmlFor="toggle-public" mb="0">
+                    {isPublic ? 'Back to DRAFT' : 'Post to PUBLIC'}
+                  </FormLabel>
+                  <Switch
+                    id="toggle-public"
+                    colorScheme="green"
+                    onChange={() => setIsPublic(!isPublic)}
+                  />
+                  <FormHelperText
+                    color={isPublic ? 'green' : 'red'}
+                    ml="3"
+                    fontSize="xl"
+                    mt="-1"
+                  >
+                    {isPublic ? 'now on public' : 'now on draft'}
+                  </FormHelperText>
+                </FormControl>
+                <Divider orientation="horizontal" />
+                <Button size="lg" colorScheme="teal">
+                  POST
+                </Button>
+              </Flex>
             </Box>
           </Stack>
         </Flex>

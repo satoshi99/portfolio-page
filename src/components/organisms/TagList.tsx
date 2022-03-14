@@ -3,7 +3,7 @@ import { AiOutlineTags } from 'react-icons/ai'
 import Link from 'next/link'
 import { ChakraLink } from '../atoms/ChakraLink'
 import { TagButton } from '../atoms/buttons/TagButton'
-import { Tag } from '../../types/types'
+import { Tag } from '../../types/main'
 
 export const TagList = () => {
   const tags: Tag[] = [
