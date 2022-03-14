@@ -154,7 +154,7 @@ const newPost: NextPage = () => {
                     {isPublic ? 'now on public' : 'now on draft'}
                   </FormHelperText>
                 </FormControl>
-                <Divider orientation="horizontal" />
+
                 <Button size="lg" colorScheme="teal">
                   POST
                 </Button>

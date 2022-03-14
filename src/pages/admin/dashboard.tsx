@@ -12,24 +12,27 @@ import {
   Grid,
   GridItem,
   UnorderedList,
-  Divider,
-  Table,
   Spacer,
 } from '@chakra-ui/react'
-import { EditButton } from '../../components/atoms/buttons/EditButton'
+import { IconButton } from '../../components/atoms/buttons/IconButton'
+import { AddIcon } from '@chakra-ui/icons'
+import { useRouter } from 'next/router'
 
 const dashboard: NextPage = () => {
+  const router = useRouter()
+  const clickPostAddIcon = () => {
+    router.push('/admin/new-post')
+  }
+
+  const clickTagAddIcon = () => {
+    return
+  }
+
   return (
     <Sidebar>
-      <Grid templateColumns="repeat(4, 1fr)" columnGap={2}>
-        <GridItem colSpan={{ base: 4, md: 3 }}>
-          <Flex
-            direction="column"
-            bgColor="white"
-            rounded="md"
-            shadow="md"
-            mb="4"
-          >
+      <Grid templateColumns="repeat(4, 1fr)" gap={2}>
+        <GridItem colSpan={{ base: 4, lg: 3 }}>
+          <Flex direction="column" bgColor="white" rounded="md" shadow="md">
             <Flex
               direction="row"
               bgColor="teal"
@@ -39,13 +42,15 @@ const dashboard: NextPage = () => {
               justify="center"
             >
               <Heading fontSize="2xl" color="white" ml="2">
-                Tag List
+                Post List
               </Heading>
               <Spacer />
-              <EditButton size="md" />
+              <IconButton onClick={clickPostAddIcon}>
+                <AddIcon />
+              </IconButton>
             </Flex>
-            <Flex direction="column">
-              <OrderedList p="5" spacing={3}>
+            <Flex direction="column" py="5" px="8">
+              <OrderedList spacing={3}>
                 <ListItem fontSize="2xl">
                   <Flex>
                     <Text>Post title 1 Post title 1 Post title 1</Text>
@@ -87,17 +92,18 @@ const dashboard: NextPage = () => {
                   </Flex>
                 </ListItem>
               </OrderedList>
-            </Flex>
-            <Flex w="100%" mt="5">
-              <Text>3 all 10 pages</Text>
-              <Box>
-                <Button mr="4px">Prev</Button>
-                <Button>Next</Button>
-              </Box>
+
+              <Flex w="100%" mt="5">
+                <Text>3 all 10 pages</Text>
+                <Box>
+                  <Button mr="4px">Prev</Button>
+                  <Button>Next</Button>
+                </Box>
+              </Flex>
             </Flex>
           </Flex>
         </GridItem>
-        <GridItem colSpan={1}>
+        <GridItem colSpan={{ base: 4, lg: 1 }}>
           <Flex direction="column" bgColor="white" rounded="md" shadow="md">
             <Flex
               direction="row"
@@ -111,10 +117,12 @@ const dashboard: NextPage = () => {
                 Tag List
               </Heading>
               <Spacer />
-              <EditButton size="md" />
+              <IconButton onClick={clickTagAddIcon}>
+                <AddIcon />
+              </IconButton>
             </Flex>
 
-            <UnorderedList p="3">
+            <UnorderedList p="5">
               <ListItem>Python</ListItem>
               <ListItem>Next.js</ListItem>
               <ListItem>Python</ListItem>
