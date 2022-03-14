@@ -14,7 +14,7 @@ import {
 import { useState } from 'react'
 import Link from 'next/link'
 import { SubmitHandler, useForm } from 'react-hook-form'
-import { AuthInputs } from '../../../types/types'
+import { AuthInputs } from '../../../types/main'
 import { ChakraLink } from '../../atoms/ChakraLink'
 
 export const AuthForm = () => {

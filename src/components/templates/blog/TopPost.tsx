@@ -1,7 +1,7 @@
 import { Heading, Stack, Text } from '@chakra-ui/react'
 import Link from 'next/link'
 import { ChakraLink } from '../../atoms/ChakraLink'
-import { Post } from '../../../types/types'
+import { Post } from '../../../types/main'
 
 type Props = {
   topPost: Post

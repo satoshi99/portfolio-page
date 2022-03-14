@@ -23,7 +23,7 @@ import {
 } from '@chakra-ui/react'
 import { useState } from 'react'
 import { useForm, SubmitHandler } from 'react-hook-form'
-import { FormInputs } from '../../../types/types'
+import { FormInputs } from '../../../types/main'
 import { SuccessView } from './SuccessPage'
 
 export const ContactForm = () => {
