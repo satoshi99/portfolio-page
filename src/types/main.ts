@@ -1,11 +1,11 @@
-export type Tag = {
+export interface Tag {
   _id: string
   title: string
   slug: string
   posts: Post[]
 }
 
-export type Post = {
+export interface Post {
   _id: string
   title: string
   description: string
@@ -14,20 +14,20 @@ export type Post = {
   tags: Tag[]
 }
 
-export type Admin = {
+export interface Admin {
   _id: string
   email: string
   posts: Post[]
 }
 
-export type FormInputs = {
+export interface FormInputs {
   name: string
   email: string
   message: string
   policyConfirm: boolean
 }
 
-export type AuthInputs = {
+export interface AuthInputs {
   email: string
   password: string
 }
