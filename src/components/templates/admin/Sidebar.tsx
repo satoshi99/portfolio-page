@@ -13,6 +13,7 @@ import {
   useDisclosure,
   BoxProps,
   FlexProps,
+  DrawerOverlay,
 } from '@chakra-ui/react'
 import { FiHome, FiPenTool, FiSettings, FiMenu } from 'react-icons/fi'
 import { LinkItem } from '../../../types/admin'
@@ -40,8 +41,8 @@ export const Sidebar = ({ children }: { children: ReactNode }) => {
         onClose={onClose}
         returnFocusOnClose={false}
         onOverlayClick={onClose}
-        size="full"
       >
+        <DrawerOverlay />
         <DrawerContent>
           <SidebarContent onClose={onClose} linkItems={linkItems} />
         </DrawerContent>
@@ -82,7 +83,6 @@ const SidebarContent = ({ onClose, linkItems, ...rest }: SidebarProps) => {
         >
           Mypage
         </Text>
-        <CloseButton display={{ base: 'flex', md: 'none' }} onClick={onClose} />
       </Flex>
       {linkItems?.map((link) => (
         <NavItem key={link.name} linkItem={link} />
@@ -141,9 +141,12 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
       {...rest}
     >
       <IconButton
-        variant="outline"
+        variant="ghost"
+        color="white"
+        size="lg"
         onClick={onOpen}
         aria-label="open menu"
+        _hover={{ bgColor: 'blackAlpha.500' }}
         icon={<FiMenu />}
       />
 
@@ -165,14 +168,7 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
 const MainBanar = () => {
   return (
     <ChakraLink href="/" isExternal>
-      <Text
-        fontWeight="bold"
-        align="center"
-        bg="white"
-        p="5"
-        mx="3"
-        shadow="2xl"
-      >
+      <Text fontWeight="bold" align="center" bg="white" p="5" shadow="2xl">
         Satoshi Tech Portfolio
       </Text>
     </ChakraLink>

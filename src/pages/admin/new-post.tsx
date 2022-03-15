@@ -29,6 +29,7 @@ import { AddIcon } from '@chakra-ui/icons'
 import type { NextPage } from 'next'
 import { useState } from 'react'
 import { Sidebar } from '../../components/templates/admin/Sidebar'
+import { CreateTagModal } from '../../components/organisms/CreateTagModal'
 
 const newPost: NextPage = () => {
   const { isOpen, onOpen, onClose } = useDisclosure()
@@ -103,36 +104,7 @@ const newPost: NextPage = () => {
             >
               Add New Tag
             </Button>
-
-            <Modal isOpen={isOpen} onClose={onClose} isCentered>
-              <ModalOverlay />
-              <ModalContent>
-                <ModalHeader>Add New Tag</ModalHeader>
-                <ModalCloseButton />
-                <form>
-                  <ModalBody pb={6}>
-                    <FormControl>
-                      <FormLabel>Name</FormLabel>
-                      <Input placeholder="Tag name" />
-                    </FormControl>
-
-                    <FormControl mt={4}>
-                      <FormLabel>Slug</FormLabel>
-                      <Input placeholder="Tag slug using URL" />
-                    </FormControl>
-                  </ModalBody>
-
-                  <ModalFooter>
-                    <Button type="submit" colorScheme="blue" mr={3}>
-                      ADD
-                    </Button>
-                    <Button type="button" onClick={onClose}>
-                      Cancel
-                    </Button>
-                  </ModalFooter>
-                </form>
-              </ModalContent>
-            </Modal>
+            <CreateTagModal isOpen={isOpen} onClose={onClose} />
 
             <Box w="100%" bgColor="teal.50" p="5">
               <Flex direction="row" gap="5">

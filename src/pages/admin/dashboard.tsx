@@ -13,20 +13,16 @@ import {
   GridItem,
   UnorderedList,
   Spacer,
+  useDisclosure,
 } from '@chakra-ui/react'
 import { IconButton } from '../../components/atoms/buttons/IconButton'
 import { AddIcon } from '@chakra-ui/icons'
 import { useRouter } from 'next/router'
+import { CreateTagModal } from '../../components/organisms/CreateTagModal'
 
 const dashboard: NextPage = () => {
   const router = useRouter()
-  const clickPostAddIcon = () => {
-    router.push('/admin/new-post')
-  }
-
-  const clickTagAddIcon = () => {
-    return
-  }
+  const { isOpen, onOpen, onClose } = useDisclosure()
 
   return (
     <Sidebar>
@@ -45,7 +41,7 @@ const dashboard: NextPage = () => {
                 Post List
               </Heading>
               <Spacer />
-              <IconButton onClick={clickPostAddIcon}>
+              <IconButton onClick={() => router.push('/admin/new-post')}>
                 <AddIcon />
               </IconButton>
             </Flex>
@@ -58,10 +54,10 @@ const dashboard: NextPage = () => {
                   <Flex direction="row" fontSize="md">
                     <Text>Published: Sep 13, 2022</Text>
                     <Text mx="2">-</Text>
-                    <Text color="green.400">Public</Text>
+                    <Text color="green">Public</Text>
                     <Text mx="2">-</Text>
                     <TiPin />
-                    <Text color="blue.500">Pinned</Text>
+                    <Text color="blue">Pinned</Text>
                   </Flex>
                 </ListItem>
 
@@ -70,7 +66,7 @@ const dashboard: NextPage = () => {
                   <Flex direction="row" fontSize="md">
                     <Text>Published: Sep 13, 2022</Text>
                     <Text mx="2">-</Text>
-                    <Text color="green.400">Public</Text>
+                    <Text color="green">Public</Text>
                   </Flex>
                 </ListItem>
 
@@ -79,7 +75,7 @@ const dashboard: NextPage = () => {
                   <Flex direction="row" fontSize="md">
                     <Text>Published: Sep 13, 2022</Text>
                     <Text mx="2">-</Text>
-                    <Text color="red.400">Draft</Text>
+                    <Text color="red">Draft</Text>
                   </Flex>
                 </ListItem>
 
@@ -88,7 +84,7 @@ const dashboard: NextPage = () => {
                   <Flex direction="row" fontSize="md">
                     <Text>Published: Sep 13, 2022</Text>
                     <Text mx="2">-</Text>
-                    <Text color="green.400">Public</Text>
+                    <Text color="green">Public</Text>
                   </Flex>
                 </ListItem>
               </OrderedList>
@@ -117,9 +113,10 @@ const dashboard: NextPage = () => {
                 Tag List
               </Heading>
               <Spacer />
-              <IconButton onClick={clickTagAddIcon}>
+              <IconButton onClick={onOpen}>
                 <AddIcon />
               </IconButton>
+              <CreateTagModal isOpen={isOpen} onClose={onClose} />
             </Flex>
 
             <UnorderedList p="5">
