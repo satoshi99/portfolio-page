@@ -19,10 +19,15 @@ import { IconButton } from '../../components/atoms/buttons/IconButton'
 import { AddIcon } from '@chakra-ui/icons'
 import { useRouter } from 'next/router'
 import { CreateTagModal } from '../../components/organisms/CreateTagModal'
+import { Pagination } from '../../components/organisms/Pagination'
 
 const dashboard: NextPage = () => {
   const router = useRouter()
   const { isOpen, onOpen, onClose } = useDisclosure()
+
+  const onClick = () => {
+    return
+  }
 
   return (
     <Sidebar>
@@ -89,12 +94,13 @@ const dashboard: NextPage = () => {
                 </ListItem>
               </OrderedList>
 
-              <Flex w="100%" mt="5">
-                <Text>3 all 10 pages</Text>
-                <Box>
-                  <Button mr="4px">Prev</Button>
-                  <Button>Next</Button>
-                </Box>
+              <Flex mt="10">
+                <Pagination
+                  totalObj={50}
+                  numObjInPage={10}
+                  currentPage={2}
+                  onClick={onClick}
+                />
               </Flex>
             </Flex>
           </Flex>

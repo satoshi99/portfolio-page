@@ -6,7 +6,7 @@ import { Layout } from '../components/templates/Layout'
 
 const Index: NextPage = () => (
   <Layout title="Welcome">
-    <Flex direction="column" bgImage={bgImage.src} height="100vh">
+    <Flex direction="column" w="full" bgImage={bgImage.src} height="100vh">
       <Flex
         justifyContent="center"
         alignItems="center"
@@ -14,7 +14,9 @@ const Index: NextPage = () => (
         bgGradient="linear(to-l, #7928CA, #FF0080)"
         bgClip="text"
       >
-        <Heading fontSize="6vw">Satoshi Tech Portfolio</Heading>
+        <Heading fontSize={{ base: '8vw', md: '6vw' }}>
+          Satoshi Tech Portfolio
+        </Heading>
       </Flex>
     </Flex>
   </Layout>

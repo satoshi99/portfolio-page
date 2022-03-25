@@ -1,12 +1,13 @@
-import { Box, Flex, Grid, GridItem, Heading, Text } from '@chakra-ui/react'
+import { Box, Flex, Grid, GridItem, Text } from '@chakra-ui/react'
 import type { NextPage } from 'next'
-import { BlogSidebar } from '../components/templates/blog/BlogSidebar'
 import { Layout } from '../components/templates/Layout'
 import { PostCard } from '../components/organisms/PostCard'
 import bgImage from '../public/blog_bg.jpg'
 import { ArrowDownIcon } from '@chakra-ui/icons'
 import { MotionBox } from '../components/atoms/MotionBox'
 import { TopPost } from '../components/templates/blog/TopPost'
+import { TagList } from '../components/templates/blog/TagList'
+import { Pagination } from '../components/organisms/Pagination'
 
 const Blog: NextPage = () => {
   const topPost = {
@@ -17,6 +18,10 @@ const Blog: NextPage = () => {
     slug: 'top-post-slug',
     isPublic: true,
     tags: [],
+  }
+
+  const onClick = () => {
+    return
   }
 
   return (
@@ -60,43 +65,28 @@ const Blog: NextPage = () => {
           </Flex>
         </Box>
 
-        <Flex direction="column" bgColor="teal.500" minH="100vh">
+        <Flex direction="column" minH="100vh" p="5">
           <Grid templateColumns="repeat(4, 1fr)">
-            <GridItem
-              colSpan={{ base: 4, lg: 3 }}
-              zIndex="sticky"
-              ml="10"
-              mt="10"
-            >
-              <Heading color="darkblue" mb="5">
-                TECHNOLOGY
-              </Heading>
-
-              <Grid
-                templateColumns={{
-                  base: 'repeat(1, 1fr)',
-                  md: 'repeat(2, 1fr)',
-                }}
-                gap="5"
-              >
-                <GridItem colSpan={{ base: 2, sm: 1 }}>
-                  <PostCard href="posts/a-slug" />
-                </GridItem>
-
-                <GridItem colSpan={{ base: 2, sm: 1 }}>
-                  <PostCard href="posts/b-slug" />
-                </GridItem>
-                <GridItem colSpan={{ base: 2, sm: 1 }}>
-                  <PostCard href="posts/d-slug" />
-                </GridItem>
-
-                <GridItem colSpan={{ base: 2, sm: 1 }}>
-                  <PostCard href="posts/c-slug" />
-                </GridItem>
-              </Grid>
+            <GridItem colSpan={{ base: 4, lg: 3 }} p={{ base: '10', lg: '16' }}>
+              <PostCard href="posts/a-slug" />
+              <PostCard href="posts/b-slug" />
+              <PostCard href="posts/d-slug" />
+              <PostCard href="posts/c-slug" />
+              <Box mt="10">
+                <Pagination
+                  totalObj={50}
+                  numObjInPage={10}
+                  currentPage={2}
+                  onClick={onClick}
+                />
+              </Box>
             </GridItem>
-            <GridItem colSpan={{ base: 4, lg: 1 }} color="white">
-              <BlogSidebar />
+            <GridItem
+              colSpan={{ base: 4, lg: 1 }}
+              py={{ base: '10', lg: '16' }}
+              px={{ base: '10', lg: '0' }}
+            >
+              <TagList />
             </GridItem>
           </Grid>
         </Flex>

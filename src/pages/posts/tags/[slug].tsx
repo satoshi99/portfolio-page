@@ -1,9 +1,6 @@
 import { Flex, Grid, GridItem, Heading, Stack } from '@chakra-ui/react'
 import type { NextPage } from 'next'
-import { AiOutlineTags } from 'react-icons/ai'
-import { PostCard } from '../../../components/organisms/PostCard'
-import { TagList } from '../../../components/organisms/TagList'
-import { PostList } from '../../../components/templates/blog/PostList'
+import { TagList } from '../../../components/templates/blog/TagList'
 import { Layout } from '../../../components/templates/Layout'
 
 const TaggedPosts: NextPage = () => {
@@ -14,7 +11,6 @@ const TaggedPosts: NextPage = () => {
           <GridItem>
             <TagList />
           </GridItem>
-          <GridItem></GridItem>
         </Grid>
       </Flex>
     </Layout>
