@@ -10,3 +10,7 @@ export interface LinkItem {
   url: string
   icon: IconType
 }
+
+export interface CsrfToken {
+  csrf_token: string
+}
