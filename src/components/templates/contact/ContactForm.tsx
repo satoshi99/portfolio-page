@@ -77,13 +77,8 @@ export const ContactForm = () => {
   }
 
   return (
-    <Flex
-      direction="column"
-      minH="100vh"
-      px={{ base: '16', md: '28', lg: '36' }}
-      py="24"
-    >
-      <Heading textAlign="center" mb="14">
+    <>
+      <Heading textAlign="center" mb="10">
         Contact Form
       </Heading>
 
@@ -94,6 +89,8 @@ export const ContactForm = () => {
             <Input
               type="text"
               placeholder="name"
+              bgColor="white"
+              size="lg"
               {...register('name', {
                 required: { value: true, message: 'Name is requried' },
               })}
@@ -108,6 +105,8 @@ export const ContactForm = () => {
             <Input
               type="email"
               placeholder="guest@example.com"
+              bgColor="white"
+              size="lg"
               {...register('email', {
                 required: {
                   value: true,
@@ -128,6 +127,8 @@ export const ContactForm = () => {
             <FormLabel>Message</FormLabel>
             <Textarea
               placeholder="Contact message..."
+              bgColor="white"
+              size="lg"
               {...register('message', {
                 required: {
                   value: true,
@@ -147,6 +148,7 @@ export const ContactForm = () => {
             <Flex direction="row" gap={2}>
               <Checkbox
                 defaultChecked={false}
+                colorScheme="teal"
                 {...register('policyConfirm', {
                   required: {
                     value: true,
@@ -154,9 +156,7 @@ export const ContactForm = () => {
                   },
                 })}
               />
-              <FormLabel mt="2">
-                Please check if you agree with Privacy Policy
-              </FormLabel>
+              <FormLabel mt="2">I agree to the Privacy Policy</FormLabel>
             </Flex>
             <FormErrorMessage>
               {errors.policyConfirm && errors.policyConfirm.message}
@@ -221,6 +221,6 @@ export const ContactForm = () => {
           </ModalFooter>
         </ModalContent>
       </Modal>
-    </Flex>
+    </>
   )
 }

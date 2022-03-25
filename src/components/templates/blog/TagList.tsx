@@ -1,9 +1,8 @@
 import { Flex, Heading, Stack } from '@chakra-ui/react'
-import { AiOutlineTags } from 'react-icons/ai'
 import Link from 'next/link'
-import { ChakraLink } from '../atoms/ChakraLink'
-import { TagButton } from '../atoms/buttons/TagButton'
-import { Tag } from '../../types/main'
+import { ChakraLink } from '../../atoms/ChakraLink'
+import { TagButton } from '../../atoms/buttons/TagButton'
+import { Tag } from '../../../types/main'
 
 export const TagList = () => {
   const tags: Tag[] = [
@@ -29,12 +28,8 @@ export const TagList = () => {
 
   return (
     <Stack direction="column" alignItems="baseline">
-      <Flex color="darkblue">
-        <Heading mt="1.5" mr="2">
-          <AiOutlineTags />
-        </Heading>
-        <Heading>Tags</Heading>
-      </Flex>
+      <Heading>Tags</Heading>
+
       <Flex direction="row" wrap="wrap" gap="2">
         {tags?.map((tag) => (
           <Link key={tag._id} href={`/posts/tags/${tag.slug}`} passHref>

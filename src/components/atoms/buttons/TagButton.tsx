@@ -9,9 +9,8 @@ export const TagButton = ({ title }: Props) => {
     <Button
       size="xs"
       variant="outline"
-      color="darkblue"
-      borderColor="darkblue"
-      _hover={{ bgColor: 'darkblue', color: 'white' }}
+      borderColor="black"
+      _hover={{ bgColor: 'black', color: 'white' }}
     >
       {title}
     </Button>

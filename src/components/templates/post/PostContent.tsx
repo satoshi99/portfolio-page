@@ -2,8 +2,8 @@ import { Box, Heading, Stack, Text } from '@chakra-ui/react'
 
 export const PostContent = () => {
   return (
-    <Stack direction="column" p="10">
-      <Text mb="10">
+    <Stack direction="column" p="10" fontFamily="serif" fontSize="md">
+      <Text mb="10" fontFamily="sans-serif">
         In 2016, we introduced AlphaGo, the first artificial intelligence
         program to defeat humans at the ancient game of Go. Its successors,
         AlphaZero and then MuZero, each represented a significant step forward
@@ -17,7 +17,7 @@ export const PostContent = () => {
       </Text>
       <Box>
         <Text fontWeight="bold" fontSize="3xl">
-          1. Content A
+          Content A
         </Text>
         <Text>
           MuZero achieves superhuman performance across various tasks by
@@ -36,7 +36,9 @@ export const PostContent = () => {
         </Text>
       </Box>
       <Box>
-        <Heading>2. Content B</Heading>
+        <Text fontWeight="bold" fontSize="3xl">
+          Content B
+        </Text>
         <Text>
           MuZero achieves superhuman performance across various tasks by
           combining the power of search with its ability to learn a model of the
