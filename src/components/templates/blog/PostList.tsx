@@ -1,5 +1,17 @@
 import React from 'react'
+import { Post } from '../../../types/main'
+import { PostCard } from '../../organisms/PostCard'
 
-export const PostList = () => {
-  return <div>PostList</div>
+type Props = {
+  posts: Post[]
+}
+
+export const PostList = ({ posts }: Props) => {
+  return (
+    <>
+      {posts?.map((post) => (
+        <PostCard key={post.id} post={post} />
+      ))}
+    </>
+  )
 }

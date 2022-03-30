@@ -1,17 +1,18 @@
 import { Box, Divider, Heading, Stack, Tag, Text } from '@chakra-ui/react'
-import NextLink from 'next/link'
+import Link from 'next/link'
+import { Post } from '../../types/main'
 import { ChakraLink } from '../atoms/ChakraLink'
 
 type Props = {
-  href: string
+  post: Post
 }
 
-export const PostCard = ({ href }: Props) => {
+export const PostCard = ({ post }: Props) => {
   const readTime = 15
 
   return (
     <>
-      <NextLink href={href} passHref>
+      <Link href={post?.url_slug ? `posts/${post.url_slug}` : '#'} passHref>
         <ChakraLink>
           <Box
             overflow="hidden"
@@ -28,13 +29,9 @@ export const PostCard = ({ href }: Props) => {
             /> */}
               <Stack direction="column" p="3">
                 <Heading fontSize="3xl" color="teal">
-                  Blog Post Title
+                  {post?.title}
                 </Heading>
-                <Text>
-                  Blog Post description Blog Post description Blog Post
-                  description Blog Post description Blog Post description Blog
-                  Post description Blog Post description Blog Post description
-                </Text>
+                <Text>{post?.description}</Text>
                 <Stack direction="row">
                   <Tag size="sm" variant="solid">
                     Python
@@ -53,7 +50,7 @@ export const PostCard = ({ href }: Props) => {
             </Box>
           </Box>
         </ChakraLink>
-      </NextLink>
+      </Link>
       <Divider my="3" />
     </>
   )
