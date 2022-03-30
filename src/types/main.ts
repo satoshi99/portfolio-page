@@ -6,7 +6,7 @@ export interface Tag {
 
 export interface Post {
   title: string
-  slug: string
+  url_slug: string
   thumbnail: string
   description: string
   content: string
