@@ -2,14 +2,13 @@ import { Box, Divider, Heading, Stack, Tag, Text } from '@chakra-ui/react'
 import Link from 'next/link'
 import { Post } from '../../types/main'
 import { ChakraLink } from '../atoms/ChakraLink'
+import { DateFormat } from './DateFormat'
 
 type Props = {
   post: Post
 }
 
 export const PostCard = ({ post }: Props) => {
-  const readTime = 15
-
   return (
     <>
       <Link href={post?.url_slug ? `posts/${post.url_slug}` : '#'} passHref>
@@ -33,19 +32,13 @@ export const PostCard = ({ post }: Props) => {
                 </Heading>
                 <Text>{post?.description}</Text>
                 <Stack direction="row">
-                  <Tag size="sm" variant="solid">
-                    Python
-                  </Tag>
-                  <Tag size="sm" variant="solid">
-                    Next.js
-                  </Tag>
-                  <Tag size="sm" variant="solid">
-                    Django REST Framework
-                  </Tag>
+                  {post?.tags.map((tag) => (
+                    <Tag key={tag.id} size="sm" variant="solid">
+                      {tag.title}
+                    </Tag>
+                  ))}
                 </Stack>
-                <Text textAlign="right" fontSize="sm">
-                  Aug 12, 2022 - {readTime} min read
-                </Text>
+                <DateFormat date={post?.updated_at} />
               </Stack>
             </Box>
           </Box>
