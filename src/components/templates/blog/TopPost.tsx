@@ -1,7 +1,7 @@
 import { Heading, Stack, Text } from '@chakra-ui/react'
 import Link from 'next/link'
 import { ChakraLink } from '../../atoms/ChakraLink'
-import { Post } from '../../../types/main'
+import { Post } from '../../../types/post'
 
 type Props = {
   topPost: Post
@@ -21,7 +21,7 @@ export const TopPost = ({ topPost }: Props) => {
         {topPost.title}
       </Heading>
       <Text fontSize="2xl">{topPost.description}</Text>
-      <Link href={`/posts/${topPost.slug}`} passHref>
+      <Link href={`/posts/${topPost.url_slug}`} passHref>
         <ChakraLink>
           <Text fontSize="xl" _hover={{ color: 'whiteAlpha.600' }}>
             continue reading ...

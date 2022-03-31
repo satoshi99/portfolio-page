@@ -14,7 +14,7 @@ import {
 import { useState } from 'react'
 import Link from 'next/link'
 import { SubmitHandler, useForm } from 'react-hook-form'
-import { AuthInputs } from '../../../types/main'
+import { AuthInputs } from '../../../types/admin'
 import { ChakraLink } from '../../atoms/ChakraLink'
 
 export const AuthForm = () => {
@@ -84,6 +84,10 @@ export const AuthForm = () => {
                     value: true,
                     message: 'Email is requried',
                   },
+                  pattern: {
+                    value: /[\w\-._]+@[\w\-._]+\.[A-Za-z]+/,
+                    message: 'Invalid Email adress',
+                  },
                 })}
               />
               <FormErrorMessage>
@@ -100,6 +104,10 @@ export const AuthForm = () => {
                       value: true,
                       message: 'Password is requried',
                     },
+                    minLength: {
+                      value: 7,
+                      message: 'Password must be more than 7 characters',
+                    },
                   })}
                 />
                 <InputRightElement width="4.5rem">
@@ -113,6 +121,13 @@ export const AuthForm = () => {
               </FormErrorMessage>
             </FormControl>
           </Stack>
+          <Flex direction="column" float="right" mt="5">
+            <Link href="admin/reset-password" passHref>
+              <ChakraLink color="blue.500" _hover={{ opacity: '0.5' }}>
+                Reset Password
+              </ChakraLink>
+            </Link>
+          </Flex>
           <Button
             type="submit"
             w="100%"

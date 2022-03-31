@@ -2,7 +2,6 @@ import React, { ReactNode } from 'react'
 import {
   IconButton,
   Box,
-  CloseButton,
   Flex,
   Icon,
   useColorModeValue,
@@ -70,20 +69,9 @@ const SidebarContent = ({ onClose, linkItems, ...rest }: SidebarProps) => {
       w={{ base: 'full', md: 60 }}
       pos="fixed"
       h="full"
+      pt="10"
       {...rest}
     >
-      <Flex h="20" alignItems="center" mx="8" justifyContent="space-between">
-        <Text
-          color="white"
-          fontSize="4xl"
-          fontFamily="monospace"
-          fontWeight="bold"
-          bgGradient="linear(to-r, yellow.100, yellow.200, yellow.400)"
-          bgClip="text"
-        >
-          Mypage
-        </Text>
-      </Flex>
       {linkItems?.map((link) => (
         <NavItem key={link.name} linkItem={link} />
       ))}

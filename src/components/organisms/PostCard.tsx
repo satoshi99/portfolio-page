@@ -1,6 +1,6 @@
 import { Box, Divider, Heading, Stack, Tag, Text } from '@chakra-ui/react'
 import Link from 'next/link'
-import { Post } from '../../types/main'
+import { Post } from '../../types/post'
 import { ChakraLink } from '../atoms/ChakraLink'
 import { DateFormat } from './DateFormat'
 

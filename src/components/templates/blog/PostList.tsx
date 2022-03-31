@@ -1,5 +1,5 @@
 import React from 'react'
-import { Post } from '../../../types/main'
+import { Post } from '../../../types/post'
 import { PostCard } from '../../organisms/PostCard'
 
 type Props = {
