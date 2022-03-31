@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { useQuery } from 'react-query'
-import { Tag } from '../types/main'
+import { Tag } from '../types/post'
 
 export const useQueryTags = () => {
   const getTags = async () => {

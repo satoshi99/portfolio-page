@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { useQuery } from 'react-query'
-import { Tag, Post } from '../types/main'
+import { Tag, Post } from '../types/post'
 
 interface TagWithPosts {
   tag: Tag

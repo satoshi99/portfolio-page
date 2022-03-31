@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { useQuery } from 'react-query'
-import { Post } from '../types/main'
+import { Post } from '../types/post'
 
 export const useQueryPublicPosts = () => {
   const getPosts = async () => {
