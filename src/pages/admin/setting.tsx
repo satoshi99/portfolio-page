@@ -17,6 +17,7 @@ import { UserInfo } from '../../types/admin'
 import { EmailIcon } from '@chakra-ui/icons'
 
 import { useState } from 'react'
+import { useQueryAdmin } from '../../hooks/useQueryAdmin'
 
 const userInfo = {
   email: 'user@gmail.com',
@@ -30,6 +31,8 @@ interface Props {
 const setting: NextPage = () => {
   const [isDisplayEmailForm, setIsDisplayEmailForm] = useState(false)
   const [isDisplayPasswordForm, setIsDisplayPasswordForm] = useState(false)
+
+  // const { data: dataAdmin } = useQueryAdmin()
 
   return (
     <Sidebar>
