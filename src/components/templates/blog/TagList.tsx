@@ -1,7 +1,6 @@
-import { Flex, Heading, Stack } from '@chakra-ui/react'
+import { Button, Flex, Heading, Stack } from '@chakra-ui/react'
 import Link from 'next/link'
 import { ChakraLink } from '../../atoms/ChakraLink'
-import { TagButton } from '../../atoms/buttons/TagButton'
 import { Tag } from '../../../types/post'
 
 type Props = {
@@ -17,7 +16,14 @@ export const TagList = ({ tags }: Props) => {
         {tags?.map((tag) => (
           <Link key={tag.id} href={`/posts/tags/${tag.slug}`} passHref>
             <ChakraLink>
-              <TagButton title={tag.title} />
+              <Button
+                size="xs"
+                variant="outline"
+                borderColor="black"
+                _hover={{ bgColor: 'black', color: 'white' }}
+              >
+                {tag.title}
+              </Button>
             </ChakraLink>
           </Link>
         ))}

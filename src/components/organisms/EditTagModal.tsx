@@ -11,66 +11,72 @@ import {
   ModalFooter,
   ModalHeader,
   ModalOverlay,
-  useToast,
 } from '@chakra-ui/react'
+import { useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
+import { useMutateTags } from '../../hooks/useMutateTags'
+import { useCustumToast } from '../../hooks/useToast'
 import { Tag } from '../../types/post'
+import { DeleteAlertDialog } from './DeleteAlertDialog'
 
 interface Props {
+  data: Tag
   isOpen: boolean
   onClose: () => void
 }
 
-export const CreateTagModal = ({ isOpen, onClose }: Props) => {
+export const EditTagModal = ({ data, isOpen, onClose }: Props) => {
   const {
     handleSubmit,
     register,
-    formState: { errors, isSubmitting, isValid },
+    formState: { errors, isValid, isSubmitting },
     reset,
-    watch,
-  } = useForm<Omit<Tag, 'id'>>({
-    mode: 'all',
-  })
+    setValue,
+  } = useForm<Tag>({ mode: 'all' })
 
-  const successToast = useToast({
-    title: 'Successfully Created',
+  setValue('id', data?.id)
+
+  const { updateTagMutation, deleteTagMutation } = useMutateTags()
+  const successToast = useCustumToast({
+    title: 'Successfully Updated',
     status: 'success',
-    duration: 9000,
-    position: 'top-left',
-    isClosable: true,
   })
 
-  const errorToast = useToast({
-    title: 'Craete Tag Failed',
-    status: 'error',
-    duration: 9000,
-    position: 'top-left',
-    isClosable: true,
-  })
+  const [isOpenAlert, setIsOpenAlert] = useState(false)
+  const toggleOpenAlert = () => setIsOpenAlert(!isOpenAlert)
 
   const handleClose = () => {
     reset()
     onClose()
   }
 
-  const onSubmit: SubmitHandler<Omit<Tag, 'id'>> = async (inputTag) => {
-    console.log(inputTag)
+  const onSubmit: SubmitHandler<Tag> = async (editedTag) => {
+    console.log(editedTag)
     onClose()
     successToast()
+    // await updateTagMutation.mutateAsync(data).then(() =>
+    //   toast({
+    //     title: 'Successfully Updated',
+    //     status: 'success',
+    //     duration: 9000,
+    //     isClosable: true,
+    //   })
+    // )
   }
 
   return (
     <Modal isOpen={isOpen} onClose={handleClose} isCentered>
       <ModalOverlay />
       <ModalContent>
-        <ModalHeader>Add New Tag</ModalHeader>
-        <ModalCloseButton />
         <form noValidate onSubmit={handleSubmit(onSubmit)}>
+          <ModalHeader>Edit Tag</ModalHeader>
+          <ModalCloseButton />
           <ModalBody pb={6}>
             <FormControl isRequired isInvalid={errors.title ? true : false}>
               <FormLabel>Name</FormLabel>
               <Input
                 type="text"
+                defaultValue={data?.title}
                 {...register('title', {
                   required: { value: true, message: 'Name is required' },
                 })}
@@ -82,7 +88,11 @@ export const CreateTagModal = ({ isOpen, onClose }: Props) => {
 
             <FormControl mt={4}>
               <FormLabel>Slug</FormLabel>
-              <Input type="text" {...register('slug')} />
+              <Input
+                type="text"
+                defaultValue={data?.slug}
+                {...register('slug')}
+              />
             </FormControl>
           </ModalBody>
 
@@ -91,17 +101,24 @@ export const CreateTagModal = ({ isOpen, onClose }: Props) => {
               type="submit"
               colorScheme="blue"
               mr={3}
-              isLoading={isSubmitting}
               disabled={!isValid}
+              isLoading={isSubmitting}
             >
-              ADD
+              UPDATE
             </Button>
-            <Button type="button" onClick={handleClose}>
-              Cancel
+            <Button type="button" colorScheme="red" onClick={toggleOpenAlert}>
+              DELETE
             </Button>
           </ModalFooter>
         </form>
       </ModalContent>
+      <DeleteAlertDialog
+        targetId={data?.id}
+        isOpen={isOpenAlert}
+        onClose={toggleOpenAlert}
+        title="Delete Tag"
+        deleteMutation={deleteTagMutation}
+      />
     </Modal>
   )
 }
