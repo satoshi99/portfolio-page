@@ -1,7 +1,7 @@
 import { IconType } from 'react-icons'
-import { Post } from './main'
+import { Post } from './post'
 
-export interface UserInfo {
+export type UserInfo = {
   id: string
   email: string
   password: string
@@ -10,17 +10,17 @@ export interface UserInfo {
   posts: Post[]
 }
 
-export interface LinkItem {
+export type LinkItem = {
   name: string
   url: string
   icon: IconType
 }
 
-export interface CsrfToken {
+export type CsrfToken = {
   csrf_token: string
 }
 
-export interface AuthInputs {
+export type AuthInputs = {
   email: string
   password: string
 }
