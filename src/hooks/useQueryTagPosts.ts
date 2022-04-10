@@ -2,22 +2,23 @@ import axios from 'axios'
 import { useQuery } from 'react-query'
 import { Tag, Post } from '../types/post'
 
-interface TagWithPosts {
+type TagWithPosts = {
   tag: Tag
   posts: Post[]
 }
 
-export const useQueryTagPosts = (tagId: string) => {
-  const getTagWithPosts = async (tagId: string) => {
-    const { data } = await axios.get<TagWithPosts>(
-      `${process.env.NEXT_PUBLIC_API_URL}/tags/${tagId}`
-    )
-    return data
-  }
-  return useQuery({
-    queryKey: ['tagWithPosts', tagId],
-    queryFn: () => getTagWithPosts(tagId),
-    enabled: !!tagId,
+export const getTagWithPosts = async (slug: string) => {
+  const { data } = await axios.get<TagWithPosts>(
+    `${process.env.NEXT_PUBLIC_API_URL}/tags/${slug}`
+  )
+  return data
+}
+
+export const useQueryTagPosts = (slug: string) => {
+  return useQuery<TagWithPosts, Error>({
+    queryKey: ['tagWithPosts', slug],
+    queryFn: () => getTagWithPosts(slug),
+    enabled: !!slug,
     staleTime: Infinity,
   })
 }

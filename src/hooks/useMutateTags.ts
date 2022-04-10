@@ -1,9 +1,11 @@
 import axios from 'axios'
+import { useRouter } from 'next/router'
 import { useMutation, useQueryClient } from 'react-query'
 import { Tag } from '../types/post'
 import { useGetCsrfToken } from './useGetCsrfToken'
 
 export const useMutateTags = () => {
+  const router = useRouter()
   const queryClient = useQueryClient()
   const createTagMutation = useMutation(
     async (inputData: Omit<Tag, 'id'>) =>
@@ -75,6 +77,11 @@ export const useMutateTags = () => {
             'tags',
             previousTags.filter((tag) => tag.id !== variables)
           )
+        }
+      },
+      onError: (err: any) => {
+        if (err.response.status === 401) {
+          router.push('/admin')
         }
       },
     }
