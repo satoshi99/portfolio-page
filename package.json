@@ -19,6 +19,7 @@
     "react-hook-form": "^7.27.1",
     "react-icons": "^4.3.1",
     "react-in-viewport": "^1.0.0-alpha.20",
+    "react-query": "^3.34.17",
     "recoil": "^0.6.1"
   },
   "devDependencies": {
