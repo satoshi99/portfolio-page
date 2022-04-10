@@ -9,19 +9,54 @@ import {
   useColorModeValue,
 } from '@chakra-ui/react'
 import { Layout } from '../../components/templates/Layout'
-import type { NextPage } from 'next'
+import type { GetStaticPaths, GetStaticProps, NextPage } from 'next'
 import Link from 'next/link'
 import { PostContent } from '../../components/templates/post/PostContent'
-import bgImage from '../../public/post_header/post_header_1.jpg'
 import { ChevronRightIcon } from '@chakra-ui/icons'
 import { TOC } from '../../components/organisms/TOC'
 
+import headerImg1 from '../../public/post_header/post_header_1.jpg'
+import headerImg2 from '../../public/post_header/post_header_2.jpg'
+import headerImg3 from '../../public/post_header/post_header_3.jpg'
+import headerImg4 from '../../public/post_header/post_header_4.jpg'
+import { useQueryPublicPosts } from '../../hooks/useQueryPublicPosts'
+import { dehydrate, QueryClient } from 'react-query'
+import { getSinglePost } from '../../hooks/useQuerySinglePost'
+
+const headerImgList = [headerImg1, headerImg2, headerImg3, headerImg4]
+const headerImg =
+  headerImgList[Math.floor(Math.random() * headerImgList.length)]
+
+// export const getStaticPaths: GetStaticPaths = async () => {
+//   const { data: posts } = await useQueryPublicPosts()
+//   const paths = posts?.map((post) => ({
+//     params: { slug: post.url_slug },
+//   }))
+//   return { paths, fallback: true }
+// }
+
+// export const getStaticProps: GetStaticProps = async ({ params }) => {
+//   const queryClient = new QueryClient()
+//   const post = queryClient.prefetchQuery(
+//     'singlePost',
+//     getSinglePost(params.slug as string)
+//   )
+//   return {
+//     props: {
+//       dehydratedState: dehydrate(queryClient),
+//     },
+//     revalidate: 3,
+//   }
+// }
+
 const PostDetail: NextPage = () => {
+  // const queryClient = new QueryClient()
+  // const post = queryClient.getQueryData("singlePost")
   const contentBgColor = useColorModeValue('white', 'gray.900')
 
   return (
     <Layout title="post detail">
-      <Box h="md" w="full" bgImage={bgImage.src} bgSize="cover">
+      <Box h="md" w="full" bgImage={headerImg1.src} bgSize="cover">
         <Flex
           direction="column"
           position="absolute"

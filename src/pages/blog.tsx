@@ -1,5 +1,5 @@
 import { Box, Flex, Grid, GridItem, Text } from '@chakra-ui/react'
-import type { NextPage } from 'next'
+import type { GetStaticProps, NextPage } from 'next'
 import { Layout } from '../components/templates/Layout'
 import { PostCard } from '../components/organisms/PostCard'
 import bgImage from '../public/blog_bg.jpg'
@@ -8,17 +8,29 @@ import { MotionBox } from '../components/atoms/MotionBox'
 import { TopPost } from '../components/templates/blog/TopPost'
 import { TagList } from '../components/templates/blog/TagList'
 import { Pagination } from '../components/organisms/Pagination'
+import { getTags } from '../hooks/useQueryTags'
+import { getPublicPosts } from '../hooks/useQueryPublicPosts'
+import { PostList } from '../components/templates/blog/PostList'
+import { dehydrate, QueryClient, useQueryClient } from 'react-query'
+import { Post, Tag } from '../types/post'
+
+export const getStaticProps: GetStaticProps = async () => {
+  const queryClient = new QueryClient()
+  await queryClient.prefetchQuery('publicPosts', getPublicPosts)
+  await queryClient.prefetchQuery('tags', getTags)
+
+  return {
+    props: {
+      dehydratedState: dehydrate(queryClient),
+    },
+    revalidate: 3,
+  }
+}
 
 const Blog: NextPage = () => {
-  const topPost = {
-    _id: '1',
-    title: 'Post Title',
-    description:
-      'Blog Post description Blog Post description Blog Post description Blog Post description Blog Post description Blog Post description Blog Post description Blog Post description',
-    slug: 'top-post-slug',
-    isPublic: true,
-    tags: [],
-  }
+  const queryClient = useQueryClient()
+  const publicPosts = queryClient.getQueryData<Post[]>('publicPosts')
+  const tags = queryClient.getQueryData<Tag[]>('tags')
 
   const onClick = () => {
     return
@@ -34,7 +46,7 @@ const Blog: NextPage = () => {
           bgSize="cover"
           position="relative"
         >
-          <TopPost topPost={topPost} />
+          {/* <TopPost topPost={topPost} /> */}
 
           <Flex
             direction="column"
@@ -68,10 +80,7 @@ const Blog: NextPage = () => {
         <Flex direction="column" minH="100vh" p="5">
           <Grid templateColumns="repeat(4, 1fr)">
             <GridItem colSpan={{ base: 4, lg: 3 }} p={{ base: '10', lg: '16' }}>
-              <PostCard href="posts/a-slug" />
-              <PostCard href="posts/b-slug" />
-              <PostCard href="posts/d-slug" />
-              <PostCard href="posts/c-slug" />
+              <PostList posts={publicPosts} />
               <Box mt="10">
                 <Pagination
                   totalObj={50}
@@ -86,7 +95,7 @@ const Blog: NextPage = () => {
               py={{ base: '10', lg: '16' }}
               px={{ base: '10', lg: '0' }}
             >
-              <TagList />
+              <TagList tags={tags} />
             </GridItem>
           </Grid>
         </Flex>

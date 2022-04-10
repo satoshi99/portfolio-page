@@ -2,7 +2,6 @@ import type { NextPage } from 'next'
 import { Sidebar } from '../../components/templates/admin/Sidebar'
 import { TiPin } from 'react-icons/ti'
 import {
-  Box,
   Flex,
   Heading,
   Text,
@@ -11,23 +10,37 @@ import {
   Button,
   Grid,
   GridItem,
-  UnorderedList,
   Spacer,
-  useDisclosure,
 } from '@chakra-ui/react'
 import { IconButton } from '../../components/atoms/buttons/IconButton'
 import { AddIcon } from '@chakra-ui/icons'
 import { useRouter } from 'next/router'
 import { CreateTagModal } from '../../components/organisms/CreateTagModal'
 import { Pagination } from '../../components/organisms/Pagination'
+import { useQueryTags } from '../../hooks/useQueryTags'
+import { useState } from 'react'
+import { EditTagModal } from '../../components/organisms/EditTagModal'
+import { Tag } from '../../types/post'
+import { useGetCsrfToken } from '../../hooks/useGetCsrfToken'
 
 const dashboard: NextPage = () => {
+  useGetCsrfToken()
   const router = useRouter()
-  const { isOpen, onOpen, onClose } = useDisclosure()
+  const [createTagIsOpen, setCreateTagIsOpen] = useState(false)
+  const [editTagIsOpen, setEditTagIsOpen] = useState(false)
+  const [editTag, setEditTag] = useState<Tag>()
+  const { data: tagsData } = useQueryTags()
 
   const onClick = () => {
     return
   }
+
+  const onClickAddTag = () => setCreateTagIsOpen(!createTagIsOpen)
+  const onClickEditTag = (tag: Tag) => {
+    setEditTag(tag)
+    setEditTagIsOpen(!editTagIsOpen)
+  }
+  const onCloseEditTag = () => setEditTagIsOpen(!editTagIsOpen)
 
   return (
     <Sidebar>
@@ -106,6 +119,12 @@ const dashboard: NextPage = () => {
           </Flex>
         </GridItem>
         <GridItem colSpan={{ base: 4, lg: 1 }}>
+          <CreateTagModal isOpen={createTagIsOpen} onClose={onClickAddTag} />
+          <EditTagModal
+            data={editTag}
+            isOpen={editTagIsOpen}
+            onClose={onCloseEditTag}
+          />
           <Flex direction="column" bgColor="white" rounded="md" shadow="md">
             <Flex
               direction="row"
@@ -119,20 +138,24 @@ const dashboard: NextPage = () => {
                 Tag List
               </Heading>
               <Spacer />
-              <IconButton onClick={onOpen}>
+              <IconButton onClick={onClickAddTag}>
                 <AddIcon />
               </IconButton>
-              <CreateTagModal isOpen={isOpen} onClose={onClose} />
             </Flex>
 
-            <UnorderedList p="5">
-              <ListItem>Python</ListItem>
-              <ListItem>Next.js</ListItem>
-              <ListItem>Python</ListItem>
-              <ListItem>Next.js</ListItem>
-              <ListItem>Python</ListItem>
-              <ListItem>Next.js</ListItem>
-            </UnorderedList>
+            <Flex direction="row" wrap="wrap" p="5" gap="2">
+              {tagsData?.map((tag) => (
+                <Button
+                  size="sm"
+                  variant="solid"
+                  colorScheme="gray"
+                  key={tag.id}
+                  onClick={() => onClickEditTag(tag)}
+                >
+                  {tag.title}
+                </Button>
+              ))}
+            </Flex>
           </Flex>
         </GridItem>
       </Grid>
