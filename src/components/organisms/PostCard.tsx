@@ -11,7 +11,7 @@ type Props = {
 export const PostCard = ({ post }: Props) => {
   return (
     <>
-      <Link href={post?.url_slug ? `posts/${post.url_slug}` : '#'} passHref>
+      <Link href={post?.url_slug ? `/posts/${post.url_slug}` : '#'} passHref>
         <ChakraLink>
           <Box
             overflow="hidden"
