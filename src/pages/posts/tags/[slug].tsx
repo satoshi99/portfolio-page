@@ -1,4 +1,12 @@
-import { Box, Flex, Grid, GridItem } from '@chakra-ui/react'
+import {
+  Box,
+  Divider,
+  Flex,
+  Grid,
+  GridItem,
+  Heading,
+  Icon,
+} from '@chakra-ui/react'
 import type { GetStaticPaths, GetStaticProps, NextPage } from 'next'
 import { dehydrate, QueryClient, useQueryClient } from 'react-query'
 import { Pagination } from '../../../components/organisms/Pagination'
@@ -8,9 +16,9 @@ import { Layout } from '../../../components/templates/Layout'
 import { getTagWithPosts } from '../../../hooks/useQueryTagPosts'
 import { getTags, useQueryTags } from '../../../hooks/useQueryTags'
 import { Post, Tag } from '../../../types/post'
+import { AiFillTag } from 'react-icons/ai'
 
-type TagWithPosts = {
-  tag: Tag
+type TagWithPosts = Tag & {
   posts: Post[]
 }
 
@@ -41,13 +49,19 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 const TaggedPosts: NextPage = () => {
   const queryClient = useQueryClient()
   const tagWithPosts = queryClient.getQueryData<TagWithPosts>('tagWithPosts')
-  // const tags = queryClient.getQueryData<Tag[]>('tags')
+  const tags = queryClient.getQueryData<Tag[]>('tags')
 
   return (
-    <Layout title="Tagged">
-      <Flex direction="column" bgColor="teal.500" minH="100vh" p="5">
+    <Layout title={`Posts list tagged with ${tagWithPosts?.title}`}>
+      <Flex direction="column" bgColor="gray.50" minH="100vh" w="full" p="5">
         <Grid templateColumns="repeat(4, 1fr)">
           <GridItem colSpan={{ base: 4, lg: 3 }} p={{ base: '10', lg: '16' }}>
+            <Flex direction="row" mt={{ base: '10', lg: '0' }}>
+              <Icon as={AiFillTag} w="6" h="6" mr="3" />
+              <Heading color="gray.900" mb="10">
+                {tagWithPosts?.title}
+              </Heading>
+            </Flex>
             <PostList posts={tagWithPosts?.posts} />
             <Box mt="10">
               <Pagination
@@ -63,7 +77,15 @@ const TaggedPosts: NextPage = () => {
             py={{ base: '10', lg: '16' }}
             px={{ base: '10', lg: '0' }}
           >
-            {/* <TagList tags={tags} /> */}
+            <Flex direction="row">
+              <Divider
+                orientation="vertical"
+                height="100vh"
+                mr="10"
+                display={{ base: 'none', lg: 'inline-block' }}
+              />
+              <TagList tags={tags} />
+            </Flex>
           </GridItem>
         </Grid>
       </Flex>
