@@ -1,7 +1,8 @@
 import { Flex, Heading } from '@chakra-ui/react'
+import type { NextPage } from 'next'
 import React from 'react'
 
-const resetPassword = () => {
+const ResetPassword: NextPage = () => {
   return (
     <Flex direction="column">
       <Heading>Reset Password</Heading>
@@ -9,4 +10,4 @@ const resetPassword = () => {
   )
 }
 
-export default resetPassword
+export default ResetPassword

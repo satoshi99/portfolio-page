@@ -1,9 +1,10 @@
-import { AuthForm } from '../../components/templates/admin/AuthForm'
+import type { NextPage } from 'next'
+import { AuthTemplate } from '../../components/templates/admin/AuthTemplate'
 import { useGetCsrfToken } from '../../hooks/useGetCsrfToken'
 
-const auth = () => {
+const Auth: NextPage = () => {
   useGetCsrfToken()
-  return <AuthForm />
+  return <AuthTemplate />
 }
 
-export default auth
+export default Auth

@@ -8,10 +8,10 @@ import {
   Text,
   useColorModeValue,
 } from '@chakra-ui/react'
-import { Layout } from '../../components/templates/Layout'
+import { Layout } from '../../components/organisms/Layout'
 import type { GetStaticPaths, GetStaticProps, NextPage } from 'next'
 import Link from 'next/link'
-import { PostContent } from '../../components/templates/post/PostContent'
+import { PostText } from '../../components/organisms/PostText'
 import { ChevronRightIcon } from '@chakra-ui/icons'
 import { TOC } from '../../components/organisms/TOC'
 
@@ -112,7 +112,7 @@ const PostDetail: NextPage = () => {
           <TOC />
         </Box>
         <Flex direction="column" w="3xl" mt="20">
-          <PostContent />
+          <PostText />
         </Flex>
       </Flex>
     </Layout>

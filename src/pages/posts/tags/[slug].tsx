@@ -9,12 +9,11 @@ import {
 } from '@chakra-ui/react'
 import type { GetStaticPaths, GetStaticProps, NextPage } from 'next'
 import { dehydrate, QueryClient, useQueryClient } from 'react-query'
-import { Pagination } from '../../../components/organisms/Pagination'
-import { PostList } from '../../../components/templates/blog/PostList'
-import { TagList } from '../../../components/templates/blog/TagList'
-import { Layout } from '../../../components/templates/Layout'
+import { Pagination } from '../../../components/molecules/Pagination'
+import { TagList } from '../../../components/organisms/TagList'
+import { Layout } from '../../../components/organisms/Layout'
 import { getTagWithPosts } from '../../../hooks/useQueryTagPosts'
-import { getTags, useQueryTags } from '../../../hooks/useQueryTags'
+import { getTags } from '../../../hooks/useQueryTags'
 import { Post, Tag } from '../../../types/post'
 import { AiFillTag } from 'react-icons/ai'
 
@@ -62,7 +61,7 @@ const TaggedPosts: NextPage = () => {
                 {tagWithPosts?.title}
               </Heading>
             </Flex>
-            <PostList posts={tagWithPosts?.posts} />
+            {/* <PostList posts={tagWithPosts?.posts} /> */}
             <Box mt="10">
               <Pagination
                 totalObj={50}
