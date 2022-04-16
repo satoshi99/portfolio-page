@@ -10,7 +10,7 @@ export type Post = {
   thumbnail: string
   description: string
   content: string
-  isPublic: boolean
+  is_public: boolean
   id: string
   created_at: Date
   updated_at: Date
