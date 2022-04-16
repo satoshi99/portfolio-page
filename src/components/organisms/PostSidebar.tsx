@@ -1,5 +1,5 @@
 import { Stack } from '@chakra-ui/react'
-import { TOC } from '../../organisms/TOC'
+import { TOC } from './TOC'
 
 export const PostSidebar = () => {
   return (

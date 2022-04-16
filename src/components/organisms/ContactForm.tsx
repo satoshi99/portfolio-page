@@ -23,8 +23,8 @@ import {
 } from '@chakra-ui/react'
 import { useState } from 'react'
 import { useForm, SubmitHandler } from 'react-hook-form'
-import { FormInputs } from '../../../types/contact'
-import { SuccessView } from './SuccessPage'
+import { FormInputs } from '../../types/contact'
+import { SuccessPage } from './SuccessPage'
 
 export const ContactForm = () => {
   const [inputValues, setInputValues] = useState<FormInputs>()
@@ -73,7 +73,7 @@ export const ContactForm = () => {
   }
 
   if (isSubmitted) {
-    return <SuccessView />
+    return <SuccessPage />
   }
 
   return (

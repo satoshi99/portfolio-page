@@ -1,6 +1,6 @@
 import { Box, Heading, Stack, Text } from '@chakra-ui/react'
 
-export const PostContent = () => {
+export const PostText = () => {
   return (
     <Stack direction="column" p="10" fontFamily="serif" fontSize="md">
       <Text mb="10" fontFamily="sans-serif">

@@ -15,8 +15,8 @@ import {
   DrawerOverlay,
 } from '@chakra-ui/react'
 import { FiHome, FiPenTool, FiSettings, FiMenu } from 'react-icons/fi'
-import { LinkItem } from '../../../types/admin'
-import { ChakraLink } from '../../atoms/ChakraLink'
+import { LinkItem } from '../../types/admin'
+import { ChakraLink } from '../atoms/ChakraLink'
 
 const linkItems: LinkItem[] = [
   { name: 'Home', url: 'dashboard', icon: FiHome },
@@ -24,7 +24,7 @@ const linkItems: LinkItem[] = [
   { name: 'Setting', url: 'setting', icon: FiSettings },
 ]
 
-export const Sidebar = ({ children }: { children: ReactNode }) => {
+export const AdminSidebar = ({ children }: { children: ReactNode }) => {
   const { isOpen, onOpen, onClose } = useDisclosure()
   return (
     <Box minH="100vh" bg={useColorModeValue('gray.100', 'gray.900')}>

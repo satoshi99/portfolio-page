@@ -1,8 +1,9 @@
 import Head from 'next/head'
 import { ReactNode } from 'react'
 import { Flex, useColorModeValue } from '@chakra-ui/react'
-import { Navbar } from '../organisms/Navbar'
-import { Footer } from '../organisms/Footer'
+
+import { Navbar } from '../molecules/Navbar'
+import { Footer } from '../molecules/Footer'
 
 type Props = {
   title: string

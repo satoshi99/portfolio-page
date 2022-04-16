@@ -1,4 +1,4 @@
-import { Button, ButtonProps, IconProps } from '@chakra-ui/react'
+import { Button, IconProps } from '@chakra-ui/react'
 
 interface Props {
   onClick: () => void

@@ -1,7 +1,7 @@
 import { Button, Flex, Heading, Stack } from '@chakra-ui/react'
 import Link from 'next/link'
-import { ChakraLink } from '../../atoms/ChakraLink'
-import { Tag } from '../../../types/post'
+import { ChakraLink } from '../atoms/ChakraLink'
+import { Tag } from '../../types/post'
 
 type Props = {
   tags: Tag[]
