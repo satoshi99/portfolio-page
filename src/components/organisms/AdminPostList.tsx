@@ -16,6 +16,8 @@ import {
 import { useRouter } from 'next/router'
 import { useRef } from 'react'
 import { TiPin } from 'react-icons/ti'
+import { useSetRecoilState } from 'recoil'
+import { updatePostState } from '../../lib/recoil-atoms'
 import { Post } from '../../types/post'
 import { DateFormat } from '../atoms/DateFormat'
 
@@ -25,12 +27,26 @@ type Props = {
 
 export const AdminPostList = ({ posts }: Props) => {
   const router = useRouter()
+  const setUpdatePost = useSetRecoilState(updatePostState)
   const initialFocusRef = useRef()
 
-  const onClickEdit = (slug: string) => {
+  const onClickEdit = (post: Post) => {
+    setUpdatePost({
+      data: {
+        id: post?.id,
+        thumbnail: post?.thumbnail,
+        title: post?.title,
+        description: post?.description,
+        content: post?.content,
+        url_slug: post?.url_slug,
+        is_public: post?.is_public,
+      },
+      tags: post?.tags,
+    })
+
     router.push({
-      pathname: '/admin/post/edit/[slug]',
-      query: { slug: slug },
+      pathname: '/admin/post/edit/[id]',
+      query: { id: post?.id },
     })
   }
 
@@ -65,10 +81,7 @@ export const AdminPostList = ({ posts }: Props) => {
               <PopoverCloseButton />
               <PopoverBody>
                 <Flex direction="row" gap={2} justify="center">
-                  <Button
-                    colorScheme="blue"
-                    onClick={() => onClickEdit(post?.url_slug)}
-                  >
+                  <Button colorScheme="blue" onClick={() => onClickEdit(post)}>
                     <EditIcon mr="2" />
                     Edit
                   </Button>
