@@ -48,6 +48,7 @@ export const AuthForm = () => {
         <Stack direction="column" spacing={5}>
           <FormControl isInvalid={errors.email ? true : false}>
             <Input
+              id="email"
               type="email"
               placeholder="Email"
               {...register('email', {
@@ -68,6 +69,7 @@ export const AuthForm = () => {
           <FormControl isInvalid={errors.password ? true : false}>
             <InputGroup>
               <Input
+                id="password"
                 type={show ? 'text' : 'password'}
                 placeholder="Password"
                 {...register('password', {
@@ -93,7 +95,7 @@ export const AuthForm = () => {
           </FormControl>
         </Stack>
         <Flex direction="column" float="right" mt="5">
-          <Link href="admin/reset-password" passHref>
+          <Link href="/admin/reset-password" passHref>
             <ChakraLink color="blue.500" _hover={{ opacity: '0.5' }}>
               Reset Password
             </ChakraLink>
