@@ -18,35 +18,42 @@ import {
 } from '@chakra-ui/react'
 import { useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
-import { CreatePostInputs, Post, Tag } from '../../../types/post'
+import { useRecoilValue } from 'recoil'
+import { updatePostState } from '../../../lib/recoil-atoms'
+import {
+  CreatePostInputs,
+  Post,
+  Tag,
+  UpdatePostInputs,
+} from '../../../types/post'
 import { AdminSidebar } from '../../organisms/AdminSidebar'
 import { CreateTagModal } from '../../organisms/CreateTagModal'
 
 type Props = {
-  post: Post
   tags: Tag[]
 }
 
-export const EditPostTemplate = ({ post, tags }: Props) => {
-  const [isPublic, setIsPublic] = useState(false)
+export const EditPostTemplate = ({ tags }: Props) => {
   const { isOpen, onOpen, onClose } = useDisclosure()
+  const updatePost = useRecoilValue(updatePostState)
+  const [isPublic, setIsPublic] = useState(updatePost.data.is_public)
   const {
     register,
     handleSubmit,
     formState: { errors, isValid, isSubmitting, isSubmitted },
-  } = useForm<CreatePostInputs>({
+  } = useForm<UpdatePostInputs>({
     mode: 'all',
-    defaultValues: {
-      data: {
-        title: post?.title,
-        url_slug: post?.url_slug,
-        thumbnail: post?.thumbnail,
-        description: post?.description,
-        content: post?.content,
-        is_public: post?.is_public,
-      },
-      tags: tags,
-    },
+    // defaultValues: {
+    //   data: {
+    //     id: updatePost.data.id,
+    //     thumbnail: updatePost.data.thumbnail,
+    //   title: up,
+    //   description: '',
+    //   content: '',
+    //   url_slug: '',
+    //   is_public: false,
+    //   }
+    // }
   })
 
   const onSubmit: SubmitHandler<CreatePostInputs> = async (data) => {
@@ -71,7 +78,7 @@ export const EditPostTemplate = ({ post, tags }: Props) => {
               <Input
                 type="text"
                 bgColor="white"
-                defaultValue={post?.title}
+                defaultValue={updatePost.data.title}
                 {...register('data.title', {
                   required: { value: true, message: 'Title is required' },
                 })}
@@ -83,7 +90,11 @@ export const EditPostTemplate = ({ post, tags }: Props) => {
 
             <FormControl>
               <FormLabel>Description</FormLabel>
-              <Textarea bgColor="white" {...register('data.description')} />
+              <Textarea
+                bgColor="white"
+                defaultValue={updatePost.data.description}
+                {...register('data.description')}
+              />
             </FormControl>
 
             <FormControl>
@@ -91,6 +102,7 @@ export const EditPostTemplate = ({ post, tags }: Props) => {
               <Textarea
                 bgColor="white"
                 minH="400px"
+                defaultValue={updatePost.data.content}
                 {...register('data.content')}
               />
             </FormControl>
@@ -101,6 +113,7 @@ export const EditPostTemplate = ({ post, tags }: Props) => {
               <Input
                 type="text"
                 bgColor="white"
+                defaultValue={updatePost.data.url_slug}
                 {...register('data.url_slug')}
               />
             </FormControl>
@@ -151,7 +164,7 @@ export const EditPostTemplate = ({ post, tags }: Props) => {
                       fontSize="xl"
                       mt="-1"
                     >
-                      {isPublic ? 'PUBLISH' : 'DRAFT'}
+                      {isPublic ? 'Publish' : 'Draft'}
                     </FormHelperText>
                   </Flex>
                 </FormControl>
