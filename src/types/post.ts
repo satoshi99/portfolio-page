@@ -19,10 +19,10 @@ export type Post = {
 
 export type CreatePostInputs = {
   data: Omit<Post, 'id' | 'created_at' | 'updated_at' | 'tags'>
-  tags: Omit<Tag[], 'id'>
+  tag_ids: string[]
 }
 
 export type UpdatePostInputs = {
   data: Omit<Post, 'created_at' | 'updated_at' | 'tags'>
-  tags: Omit<Tag[], 'id'>
+  tag_ids: string[]
 }
