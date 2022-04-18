@@ -22,7 +22,7 @@ export const updatePostState = atom<UpdatePostInputs>({
       url_slug: '',
       is_public: false,
     },
-    tags: [],
+    tag_ids: [],
   },
   effects_UNSTABLE: [persistAtom],
 })
