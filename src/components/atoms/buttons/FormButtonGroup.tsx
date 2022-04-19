@@ -4,6 +4,7 @@ type Props = {
   submitTitle: string
   cancelTitle: string
   onClickCancel: () => void
+  isValid: boolean
   isSubmitting: boolean
 }
 
@@ -11,6 +12,7 @@ export const FormButtonGroup = ({
   submitTitle,
   cancelTitle,
   onClickCancel,
+  isValid,
   isSubmitting,
 }: Props) => {
   return (
@@ -19,6 +21,7 @@ export const FormButtonGroup = ({
         type="submit"
         variant="solid"
         colorScheme="blue"
+        disabled={!isValid}
         isLoading={isSubmitting}
       >
         {submitTitle}
