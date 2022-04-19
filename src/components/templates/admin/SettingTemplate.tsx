@@ -14,15 +14,10 @@ export const SettingTemplate = ({ userInfo }: Props) => {
   const [isDisplayEmailForm, setIsDisplayEmailForm] = useState(false)
   const [isDisplayPasswordForm, setIsDisplayPasswordForm] = useState(false)
 
-  const onSubmitEmail = () => {
-    return
-  }
   const onClickCancelEmail = () => {
     setIsDisplayEmailForm(false)
   }
-  const onSubmitPw = () => {
-    return
-  }
+
   const onClickCancelPw = () => {
     setIsDisplayPasswordForm(false)
   }
@@ -40,10 +35,7 @@ export const SettingTemplate = ({ userInfo }: Props) => {
             {isDisplayEmailForm ? (
               <Box bg="white" borderRadius="lg" w="md">
                 <Box m={8} color="#0B0E3F">
-                  <UpdateEmailForm
-                    onSubmit={onSubmitEmail}
-                    onClickCancel={onClickCancelEmail}
-                  />
+                  <UpdateEmailForm onClickCancel={onClickCancelEmail} />
                 </Box>
               </Box>
             ) : (
@@ -57,10 +49,7 @@ export const SettingTemplate = ({ userInfo }: Props) => {
             {isDisplayPasswordForm ? (
               <Box bg="white" borderRadius="lg" w="md">
                 <Box m={8} color="#0B0E3F">
-                  <UpdatePasswordForm
-                    onSubmit={onSubmitPw}
-                    onClickCancel={onClickCancelPw}
-                  />
+                  <UpdatePasswordForm onClickCancel={onClickCancelPw} />
                 </Box>
               </Box>
             ) : (
