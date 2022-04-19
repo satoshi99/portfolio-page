@@ -1,10 +1,9 @@
 import { Flex, FormControl, FormLabel, Input } from '@chakra-ui/react'
 import React from 'react'
-import { useForm } from 'react-hook-form'
+import { SubmitHandler, useForm } from 'react-hook-form'
 import { FormButtonGroup } from '../atoms/buttons/FormButtonGroup'
 
 type Props = {
-  onSubmit: () => void
   onClickCancel: () => void
 }
 
@@ -13,17 +12,22 @@ type UpdateEmail = {
   confirm: string
 }
 
-export const UpdateEmailForm = ({ onSubmit, onClickCancel }: Props) => {
+export const UpdateEmailForm = ({ onClickCancel }: Props) => {
   const {
     register,
     handleSubmit,
-    formState: { errors, isSubmitting },
+    formState: { errors, isSubmitting, isValid },
   } = useForm<UpdateEmail>({
     mode: 'all',
   })
+
+  const onSubmit: SubmitHandler<UpdateEmail> = (data) => {
+    console.log(data)
+  }
+
   return (
-    <Flex direction="column" gap="5">
-      <form onSubmit={handleSubmit(onSubmit)}>
+    <form noValidate onSubmit={handleSubmit(onSubmit)}>
+      <Flex direction="column" gap="5">
         <FormControl isRequired isInvalid={errors.newEmail ? true : false}>
           <FormLabel>New Email</FormLabel>
           <Input
@@ -34,7 +38,7 @@ export const UpdateEmailForm = ({ onSubmit, onClickCancel }: Props) => {
             })}
           />
         </FormControl>
-        <FormControl id="email">
+        <FormControl isRequired isInvalid={errors.confirm ? true : false}>
           <FormLabel>Confirm New Email</FormLabel>
           <Input
             type="email"
@@ -48,9 +52,10 @@ export const UpdateEmailForm = ({ onSubmit, onClickCancel }: Props) => {
           submitTitle="SAVE"
           cancelTitle="CANCEL"
           onClickCancel={onClickCancel}
+          isValid={isValid}
           isSubmitting={isSubmitting}
         />
-      </form>
-    </Flex>
+      </Flex>
+    </form>
   )
 }
