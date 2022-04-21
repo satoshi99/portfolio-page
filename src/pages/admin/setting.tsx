@@ -1,5 +1,6 @@
 import type { NextPage } from 'next'
 import { SettingTemplate } from '../../components/templates/admin/SettingTemplate'
+import { useGetCsrfToken } from '../../hooks/useGetCsrfToken'
 
 const userInfo = {
   email: 'user@gmail.com',
@@ -7,6 +8,7 @@ const userInfo = {
 }
 
 const Setting: NextPage = () => {
+  useGetCsrfToken()
   // const { data: dataAdmin } = useQueryAdmin()
 
   return <SettingTemplate userInfo={userInfo} />
