@@ -5,13 +5,13 @@ import {
   Input,
   InputGroup,
 } from '@chakra-ui/react'
-import { useState } from 'react'
+import { Dispatch, SetStateAction, useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { FormButtonGroup } from '../atoms/buttons/FormButtonGroup'
 import { ShowPasswordButton } from '../atoms/buttons/ShowPasswordButton'
 
 type Props = {
-  onClickCancel: () => void
+  setDisplayFormState: Dispatch<SetStateAction<boolean>>
 }
 
 type UpdatePw = {
@@ -20,7 +20,7 @@ type UpdatePw = {
   confirm: string
 }
 
-export const UpdatePasswordForm = ({ onClickCancel }: Props) => {
+export const UpdatePasswordForm = ({ setDisplayFormState }: Props) => {
   const [showCurrentPw, setShowCurrentPw] = useState(false)
   const [showNewPw, setShowNewPw] = useState(false)
   const [showConfirmPw, setShowConfirmPw] = useState(false)
@@ -33,9 +33,14 @@ export const UpdatePasswordForm = ({ onClickCancel }: Props) => {
     mode: 'all',
   })
 
+  const handleClickCancel = () => {
+    setDisplayFormState(false)
+  }
+
   const onSubmit: SubmitHandler<UpdatePw> = (data) => {
     console.log(data)
   }
+
   return (
     <form noValidate onSubmit={handleSubmit(onSubmit)}>
       <Flex direction="column" gap="5">
@@ -93,7 +98,7 @@ export const UpdatePasswordForm = ({ onClickCancel }: Props) => {
         <FormButtonGroup
           submitTitle="SAVE"
           cancelTitle="CANCEL"
-          onClickCancel={onClickCancel}
+          onClickCancel={handleClickCancel}
           isValid={isValid}
           isSubmitting={isSubmitting}
         />

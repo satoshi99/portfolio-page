@@ -1,10 +1,10 @@
 import { Flex, FormControl, FormLabel, Input } from '@chakra-ui/react'
-import React from 'react'
+import React, { Dispatch, SetStateAction } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { FormButtonGroup } from '../atoms/buttons/FormButtonGroup'
 
 type Props = {
-  onClickCancel: () => void
+  setDisplayFormState: Dispatch<SetStateAction<boolean>>
 }
 
 type UpdateEmail = {
@@ -12,7 +12,7 @@ type UpdateEmail = {
   confirm: string
 }
 
-export const UpdateEmailForm = ({ onClickCancel }: Props) => {
+export const UpdateEmailForm = ({ setDisplayFormState }: Props) => {
   const {
     register,
     handleSubmit,
@@ -20,6 +20,10 @@ export const UpdateEmailForm = ({ onClickCancel }: Props) => {
   } = useForm<UpdateEmail>({
     mode: 'all',
   })
+
+  const handleClickCancel = () => {
+    setDisplayFormState(false)
+  }
 
   const onSubmit: SubmitHandler<UpdateEmail> = (data) => {
     console.log(data)
@@ -51,7 +55,7 @@ export const UpdateEmailForm = ({ onClickCancel }: Props) => {
         <FormButtonGroup
           submitTitle="SAVE"
           cancelTitle="CANCEL"
-          onClickCancel={onClickCancel}
+          onClickCancel={handleClickCancel}
           isValid={isValid}
           isSubmitting={isSubmitting}
         />

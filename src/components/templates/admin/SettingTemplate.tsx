@@ -11,16 +11,8 @@ type Props = {
 }
 
 export const SettingTemplate = ({ userInfo }: Props) => {
-  const [isDisplayEmailForm, setIsDisplayEmailForm] = useState(false)
-  const [isDisplayPasswordForm, setIsDisplayPasswordForm] = useState(false)
-
-  const onClickCancelEmail = () => {
-    setIsDisplayEmailForm(false)
-  }
-
-  const onClickCancelPw = () => {
-    setIsDisplayPasswordForm(false)
-  }
+  const [displayEmailForm, setDisplayEmailForm] = useState(false)
+  const [displayPasswordForm, setDisplayPasswordForm] = useState(false)
 
   return (
     <AdminSidebar>
@@ -30,31 +22,31 @@ export const SettingTemplate = ({ userInfo }: Props) => {
           <Stack direction="column" pl={0} spacing={3} alignItems="flex-start">
             <Flex columnGap="3">
               <EmailIcon fontSize="3xl" />
-              <Text fontSize="xl">Email adress: {userInfo?.email}</Text>
+              <Text fontSize="xl">Email: {userInfo?.email}</Text>
             </Flex>
-            {isDisplayEmailForm ? (
+            {displayEmailForm ? (
               <Box bg="white" borderRadius="lg" w="md">
                 <Box m={8} color="#0B0E3F">
-                  <UpdateEmailForm onClickCancel={onClickCancelEmail} />
+                  <UpdateEmailForm setDisplayFormState={setDisplayEmailForm} />
                 </Box>
               </Box>
             ) : (
-              <Button
-                onClick={() => setIsDisplayEmailForm(!isDisplayEmailForm)}
-              >
+              <Button onClick={() => setDisplayEmailForm(!displayEmailForm)}>
                 Change Email
               </Button>
             )}
 
-            {isDisplayPasswordForm ? (
+            {displayPasswordForm ? (
               <Box bg="white" borderRadius="lg" w="md">
                 <Box m={8} color="#0B0E3F">
-                  <UpdatePasswordForm onClickCancel={onClickCancelPw} />
+                  <UpdatePasswordForm
+                    setDisplayFormState={setDisplayPasswordForm}
+                  />
                 </Box>
               </Box>
             ) : (
               <Button
-                onClick={() => setIsDisplayPasswordForm(!isDisplayPasswordForm)}
+                onClick={() => setDisplayPasswordForm(!displayPasswordForm)}
               >
                 Change Password
               </Button>
