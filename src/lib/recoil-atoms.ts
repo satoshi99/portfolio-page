@@ -10,6 +10,12 @@ export const csrfState = atom<boolean>({
   effects_UNSTABLE: [persistAtom],
 })
 
+export const postMarkdownState = atom<string>({
+  key: 'postMarkdown',
+  default: '',
+  effects_UNSTABLE: [persistAtom],
+})
+
 export const updatePostState = atom<UpdatePostInputs>({
   key: 'updatePost',
   default: {
