@@ -49,7 +49,7 @@ export const DashboardTemplate = ({ tags, posts }: Props) => {
                 Post List
               </Heading>
               <Spacer />
-              <IconButton onClick={() => router.push('/admin/new-post')}>
+              <IconButton onClick={() => router.push('/admin/post/new')}>
                 <AddIcon />
               </IconButton>
             </Flex>
