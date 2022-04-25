@@ -1,3 +1,5 @@
+import '../styles/markdown.scss'
+
 import { ChakraProvider } from '@chakra-ui/react'
 import theme from '../utils/theme'
 import { AppProps } from 'next/app'
