@@ -20,7 +20,7 @@ import { ChakraLink } from '../atoms/ChakraLink'
 
 const linkItems: LinkItem[] = [
   { name: 'Home', url: 'dashboard', icon: FiHome },
-  { name: 'New post', url: 'new-post', icon: FiPenTool },
+  { name: 'New post', url: 'post/new', icon: FiPenTool },
   { name: 'Setting', url: 'setting', icon: FiSettings },
 ]
 

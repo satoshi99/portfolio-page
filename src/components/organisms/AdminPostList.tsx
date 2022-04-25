@@ -41,7 +41,7 @@ export const AdminPostList = ({ posts }: Props) => {
         url_slug: post?.url_slug,
         is_public: post?.is_public,
       },
-      tags: post?.tags,
+      tag_ids: post?.tags.map((tag) => tag.id),
     })
 
     router.push({
