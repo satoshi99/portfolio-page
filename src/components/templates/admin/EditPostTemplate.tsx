@@ -13,6 +13,12 @@ import {
   Input,
   Stack,
   Switch,
+  Tab,
+  TabList,
+  TabPanel,
+  TabPanels,
+  Tabs,
+  Text,
   Textarea,
   useDisclosure,
 } from '@chakra-ui/react'
@@ -28,6 +34,7 @@ import {
 } from '../../../types/post'
 import { AdminSidebar } from '../../organisms/AdminSidebar'
 import { CreateTagModal } from '../../organisms/CreateTagModal'
+import { MarkdownToHtml } from '../../organisms/MarkdownToHtml'
 
 type Props = {
   tags: Tag[]
@@ -36,36 +43,31 @@ type Props = {
 export const EditPostTemplate = ({ tags }: Props) => {
   const { isOpen, onOpen, onClose } = useDisclosure()
   const updatePost = useRecoilValue(updatePostState)
+  const [markdown, setMarkdown] = useState('')
   const [isPublic, setIsPublic] = useState(updatePost.data.is_public)
   const {
     register,
     handleSubmit,
+    watch,
+    getValues,
     formState: { errors, isValid, isSubmitting, isSubmitted },
   } = useForm<UpdatePostInputs>({
     mode: 'all',
-    // defaultValues: {
-    //   data: {
-    //     id: updatePost.data.id,
-    //     thumbnail: updatePost.data.thumbnail,
-    //   title: up,
-    //   description: '',
-    //   content: '',
-    //   url_slug: '',
-    //   is_public: false,
-    //   }
-    // }
+    defaultValues: updatePost,
   })
 
   const onSubmit: SubmitHandler<CreatePostInputs> = async (data) => {
     console.log(data)
   }
 
+  const onClickPreview = () => {
+    setMarkdown(getValues('data.content'))
+  }
+
   return (
     <AdminSidebar>
       {console.log('rendered new-post page')}
       <form noValidate onSubmit={handleSubmit(onSubmit)}>
-        {/* <Grid templateColumns='repeat(2, 1fr)' gap={5}> */}
-        {/* <GridItem colSpan={{ base: 2, lg: 1 }}> */}
         <Flex direction="column" p="4">
           <Heading>Edit Post</Heading>
 
@@ -99,12 +101,45 @@ export const EditPostTemplate = ({ tags }: Props) => {
 
             <FormControl>
               <FormLabel>Body</FormLabel>
-              <Textarea
-                bgColor="white"
-                minH="400px"
-                defaultValue={updatePost.data.content}
-                {...register('data.content')}
-              />
+              <Tabs colorScheme="teal">
+                <TabList>
+                  <Tab>Draft</Tab>
+                  <Button
+                    variant="unstyled"
+                    fontWeight="normal"
+                    onClick={onClickPreview}
+                    _hover={{ textDecoration: 'none' }}
+                  >
+                    <Tab>Preview</Tab>
+                  </Button>
+                </TabList>
+                <TabPanels>
+                  <TabPanel>
+                    <FormHelperText>Markdown</FormHelperText>
+                    <Textarea
+                      bgColor="white"
+                      minH="600px"
+                      defaultValue={updatePost.data.content}
+                      {...register('data.content')}
+                    />
+                  </TabPanel>
+                  <TabPanel>
+                    <FormHelperText>Converted HTML</FormHelperText>
+                    <Flex
+                      direction="column"
+                      overflow="auto"
+                      bgColor="white"
+                      h="600px"
+                      p="5"
+                      borderRadius="md"
+                      border="1px"
+                      borderColor="teal.600"
+                    >
+                      <MarkdownToHtml markdown={markdown} />
+                    </Flex>
+                  </TabPanel>
+                </TabPanels>
+              </Tabs>
             </FormControl>
 
             <FormControl>
@@ -120,10 +155,17 @@ export const EditPostTemplate = ({ tags }: Props) => {
 
             <FormControl>
               <FormLabel>Tags</FormLabel>
-              <CheckboxGroup colorScheme="blue">
+              <CheckboxGroup
+                colorScheme="blue"
+                defaultValue={updatePost?.tag_ids}
+              >
                 <Flex direction="row" gap="3" wrap="wrap">
                   {tags?.map((tag) => (
-                    <Checkbox key={tag.id} value={tag.id} {...register('tags')}>
+                    <Checkbox
+                      key={tag.id}
+                      value={tag.id}
+                      {...register('tag_ids')}
+                    >
                       {tag.title}
                     </Checkbox>
                   ))}
@@ -153,19 +195,11 @@ export const EditPostTemplate = ({ tags }: Props) => {
                       id="toggle-public"
                       size="lg"
                       colorScheme="green"
-                      {...register('data.is_public', {
-                        value: isPublic,
-                        onChange: () => setIsPublic(!isPublic),
-                      })}
+                      {...register('data.is_public')}
                     />
-                    <FormHelperText
-                      color={isPublic ? 'green' : 'red'}
-                      ml="3"
-                      fontSize="xl"
-                      mt="-1"
-                    >
-                      {isPublic ? 'Publish' : 'Draft'}
-                    </FormHelperText>
+                    <Text ml="3" fontWeight="bold" fontSize="xl" mt="-1">
+                      {watch('data.is_public') ? 'Publish' : 'Draft'}
+                    </Text>
                   </Flex>
                 </FormControl>
 
@@ -177,25 +211,12 @@ export const EditPostTemplate = ({ tags }: Props) => {
                   disabled={!isValid}
                   isLoading={isSubmitting}
                 >
-                  {isPublic ? 'POST' : 'SAVE'}
+                  {watch('data.is_public') ? 'POST' : 'SAVE'}
                 </Button>
               </Flex>
             </Box>
           </Stack>
         </Flex>
-        {/* </GridItem>
-      <GridItem colSpan={{ base: 2, lg: 1 }} >
-        <Flex direction="column">
-          <Flex>
-              <Button leftIcon={<ViewIcon />} colorScheme='teal' variant='solid'>Preview</Button>
-              </Flex>
-              <Box minH="95vh" bgColor="white" p="5" mt="4">
-                  Markdown Preview here
-              </Box>
-           
-        </Flex>
-      </GridItem>
-      </Grid> */}
       </form>
     </AdminSidebar>
   )
