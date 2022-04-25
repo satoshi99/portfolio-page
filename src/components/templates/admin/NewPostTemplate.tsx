@@ -13,6 +13,11 @@ import {
   Input,
   Stack,
   Switch,
+  Tab,
+  TabList,
+  TabPanel,
+  TabPanels,
+  Tabs,
   Textarea,
   useDisclosure,
 } from '@chakra-ui/react'
@@ -21,6 +26,7 @@ import { SubmitHandler, useForm } from 'react-hook-form'
 import { CreatePostInputs, Tag } from '../../../types/post'
 import { AdminSidebar } from '../../organisms/AdminSidebar'
 import { CreateTagModal } from '../../organisms/CreateTagModal'
+import { MarkdownToHtml } from '../../organisms/MarkdownToHtml'
 
 type Props = {
   tags: Tag[]
@@ -28,10 +34,13 @@ type Props = {
 
 export const NewPostTemplate = ({ tags }: Props) => {
   const [isPublic, setIsPublic] = useState(false)
+  const [markdown, setMarkdown] = useState('')
   const { isOpen, onOpen, onClose } = useDisclosure()
   const {
     register,
     handleSubmit,
+    watch,
+    getValues,
     formState: { errors, isValid, isSubmitting, isSubmitted },
   } = useForm<CreatePostInputs>({
     mode: 'all',
@@ -44,7 +53,7 @@ export const NewPostTemplate = ({ tags }: Props) => {
         content: '',
         is_public: false,
       },
-      tags: [],
+      tag_ids: [],
     },
   })
 
@@ -52,12 +61,14 @@ export const NewPostTemplate = ({ tags }: Props) => {
     console.log(data)
   }
 
+  const onClickPreview = () => {
+    setMarkdown(getValues('data.content'))
+  }
+
   return (
     <AdminSidebar>
       {console.log('rendered new-post page')}
       <form noValidate onSubmit={handleSubmit(onSubmit)}>
-        {/* <Grid templateColumns='repeat(2, 1fr)' gap={5}> */}
-        {/* <GridItem colSpan={{ base: 2, lg: 1 }}> */}
         <Flex direction="column" p="4">
           <Heading>New Post</Heading>
 
@@ -86,11 +97,44 @@ export const NewPostTemplate = ({ tags }: Props) => {
 
             <FormControl>
               <FormLabel>Body</FormLabel>
-              <Textarea
-                bgColor="white"
-                minH="400px"
-                {...register('data.content')}
-              />
+              <Tabs colorScheme="teal">
+                <TabList>
+                  <Tab>Draft</Tab>
+                  <Button
+                    variant="unstyled"
+                    fontWeight="normal"
+                    onClick={onClickPreview}
+                    _hover={{ textDecoration: 'none' }}
+                  >
+                    <Tab>Preview</Tab>
+                  </Button>
+                </TabList>
+                <TabPanels>
+                  <TabPanel>
+                    <FormHelperText>Markdown</FormHelperText>
+                    <Textarea
+                      bgColor="white"
+                      minH="600px"
+                      {...register('data.content')}
+                    />
+                  </TabPanel>
+                  <TabPanel>
+                    <FormHelperText>Converted HTML</FormHelperText>
+                    <Flex
+                      direction="column"
+                      overflow="auto"
+                      bgColor="white"
+                      h="600px"
+                      p="5"
+                      borderRadius="md"
+                      border="1px"
+                      borderColor="teal.600"
+                    >
+                      <MarkdownToHtml markdown={markdown} />
+                    </Flex>
+                  </TabPanel>
+                </TabPanels>
+              </Tabs>
             </FormControl>
 
             <FormControl>
@@ -108,7 +152,11 @@ export const NewPostTemplate = ({ tags }: Props) => {
               <CheckboxGroup colorScheme="blue">
                 <Flex direction="row" gap="3" wrap="wrap">
                   {tags?.map((tag) => (
-                    <Checkbox key={tag.id} value={tag.id} {...register('tags')}>
+                    <Checkbox
+                      key={tag.id}
+                      value={tag.id}
+                      {...register('tag_ids')}
+                    >
                       {tag.title}
                     </Checkbox>
                   ))}
@@ -144,12 +192,13 @@ export const NewPostTemplate = ({ tags }: Props) => {
                       })}
                     />
                     <FormHelperText
-                      color={isPublic ? 'green' : 'red'}
                       ml="3"
+                      color="black"
+                      fontWeight="bold"
                       fontSize="xl"
                       mt="-1"
                     >
-                      {isPublic ? 'PUBLISH' : 'DRAFT'}
+                      {isPublic ? 'Publish' : 'Draft'}
                     </FormHelperText>
                   </Flex>
                 </FormControl>
@@ -168,19 +217,6 @@ export const NewPostTemplate = ({ tags }: Props) => {
             </Box>
           </Stack>
         </Flex>
-        {/* </GridItem>
-        <GridItem colSpan={{ base: 2, lg: 1 }} >
-          <Flex direction="column">
-            <Flex>
-                <Button leftIcon={<ViewIcon />} colorScheme='teal' variant='solid'>Preview</Button>
-                </Flex>
-                <Box minH="95vh" bgColor="white" p="5" mt="4">
-                    Markdown Preview here
-                </Box>
-             
-          </Flex>
-        </GridItem>
-        </Grid> */}
       </form>
     </AdminSidebar>
   )
