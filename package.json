@@ -19,9 +19,12 @@
     "react-hook-form": "^7.27.1",
     "react-icons": "^4.3.1",
     "react-in-viewport": "^1.0.0-alpha.20",
+    "react-markdown": "^8.0.3",
     "react-query": "^3.34.17",
     "recoil": "^0.6.1",
-    "recoil-persist": "^4.1.0"
+    "recoil-persist": "^4.1.0",
+    "remark-gfm": "^3.0.1",
+    "sass": "^1.50.1"
   },
   "devDependencies": {
     "@types/node": "^14.6.0",
